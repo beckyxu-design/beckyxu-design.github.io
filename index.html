@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* Navigation Styles */
+    nav {
+      width: 365px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 80px 40px;
+      position: sticky;  /* Stays in view while scrolling */
+      top: 0;           /* Required for sticky positioning */
+      overflow-y: auto; /* In case content is taller than viewport */
+    }
+    @media (max-width: 1100px) {
+      nav {
+        width: 30%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      nav {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        padding: 10px;
+        overflow: hidden;
+      }
+
+      nav p, nav ul {
+        display: none;
+      }
+    }
+
+    nav ul {
+      list-style-type: none;
+    }
+
+    nav ul li {
+      margin-bottom: 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: red;
+    }
+
+    /* Top nav container */
+    .top-nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Space between logo and links */
+        padding: 0 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        z-index: 9999; /* Ensure it's on top of everything else */
+    }
+    
+    /* Logo styling */
+    .nav-logo img {
+        height: 40px; /* Adjust logo size */
+        object-fit: contain;
+    }
+    
+    /* Links container (aligned to the right) */
+    .nav-links {
+        display: flex;
+        gap: 15px; /* Spacing buttons */
+    }
+    
+    /* Link buttons */
+    .nav-links .btn {
+        text-decoration: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-weight: 600;
+        color: #333;
+        background-color: #f9f9f9;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links .btn:hover {
+        background-color: #333;
+        color: #fff;
+        border-color: #333;
+    }  
+  
+    /* Push main content down if you don't want it hidden behind the top nav */
+    /* Main Content Styles */
+    main {
+      flex: 1;
+      padding: 80px 50px 50px 50px;
+      margin-left: 0; /* No extra margin needed since nav is sticky */
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    /* Project Grid Styles */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      /* For smaller screens, display a single column */
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Make the entire project card clickable */
+    .project-link {
+        text-decoration: none; /* Remove underline */
+        color: inherit;        /* Keep text colors unchanged */
+        display: block;        /* Ensure the link wraps the entire card */
+    }
+
+    .project-card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-card h3 {
+      padding: 10px;
+      margin: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-card h3 {
+      padding: 10px;
+      margin: 0;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+
+    /* NEW TEST STYLE */
+    /* Description styling (hidden by default) */
+    .description {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 200px; /* Keeps the image height fixed */
+        background-color: rgba(0, 0, 0, 0.92); /* ~90% opacity black */
+        color: #fff;
+        padding: 10px;
+        display: flex;   /* Use flexbox to center content */
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9em;
+        opacity: 0;     /* hidden by default */
+        transition: opacity 0.3s;
+    }
+
+    /* Show description on hover */
+    .project-card:hover .description {
+    display: flex;  
+    opacity: 1;
+    }
+
+    /* Tag Styles */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 10px;
+    }
+
+    .tag {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+  <!-- add a nav bar on the top of the screen that collapse up as user scroll down -->
+   
+  <!-- Side Navigation Bar -->
+  <nav>
+    <p>
+        Hello! 👋
+        <br><br>
+        I'm Becky Xu 👩‍💻, a Master of City Planning student at MIT. 
+        <br><br>
+        I have been proudly building and shipping projects, products, and research at the intersection of AI/ML and sustainability for our climate-resilient future. 
+        <br>
+        Here are some of my past projects:
+    </p>
+    <br><br>
+    <ul>
+      <li><a href="#machine-learning">Machine Learning</a></li>
+      <li><a href="#design">Design</a></li>
+      <li><a href="#research">Research</a></li>
+    </ul>
+    <br>
+
+    <p>
+        If you'd like to chat, feel free to reach out to me through email or LinkedIn!
+    </p>
+
+  </nav>
+
+  <!-- Top Navigation Bar -->
+  <div class="top-nav" id="topNav">
+    <!-- Logo aligned to the left -->
+    <div class="nav-logo">
+        <img src="/img/my-logo.png" alt="BX" />
+    </div>
+
+    <!-- Links aligned to the right -->
+    <div class="nav-links">
+        <!-- <a href="#aboutme" class="btn">About Me</a> -->
+        <!-- <a href="/about.html" class="btn">About Me</a> -->
+        <a href="mailto:zx96@mit.edu" class="btn">Email</a>
+        <a href="https://linkedin.com/in/zqxu" target="_blank" class="btn">LinkedIn</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Machine Learning Section -->
+    <section id="machine-learning">
+      <h1>Machine Learning Projects</h1>
+      <div class="project-grid">
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+      </div>
+    </section>
+    <br><br>
+
+    <!-- Design Section -->
+    <section id="design">
+      <h1>Design Projects</h1>
+      <div class="project-grid">
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+      </div>
+    </section>
+    <br><br>
+
+    <!-- Research Section -->
+    <section id="research">
+      <h1>Research Projects</h1>
+      <div class="project-grid">
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project uses advanced techniques to handle image classification.
+              </div>
+              <h3>ML Project 1</h3>
+              <div class="tags">
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Neural Networks</span>
+                <span class="tag">Python</span>
+              </div>
+            </div>
+        </a>
+      </div>
+    </section>
+    <br><br>
+  </main>
+
+  <script>
+    let lastScrollTop = 0;
+    const topNav = document.getElementById('topNav');
+  
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (currentScroll > lastScrollTop) {
+        // Scrolling down
+        topNav.style.transform = 'translateY(-60px)'; 
+      } else {
+        // Scrolling up
+        topNav.style.transform = 'translateY(0)';
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+  </script>
+</body>
+</html>
