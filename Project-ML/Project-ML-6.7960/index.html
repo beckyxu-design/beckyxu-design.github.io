@@ -1,0 +1,712 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<link rel="shortcut icon" href="images/icon.ico">
+
+	<title>SatML For Environmental Monitoring - AI for Cliamte</title>
+		<meta property="og:title" content="Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact" />
+				<meta charset="UTF-8">
+</head>
+
+<body>
+		<!-- TITLE -->
+		<div class="content-margin-container">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<table class="header" align=left>
+								<tr>
+									<td colspan=4>
+										<span style="font-size: 32px; font-family: 'Courier New', Courier, monospace; /* Adds fallbacks */">Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact</span>
+									</td>
+								</tr>
+								<tr>
+										<td align=left>
+												<span style="font-size:17px">Becky Xu</a></span>
+										</td>
+										<!-- <td align=left>
+												<span style="font-size:17px"><a href="your_partner's_website">Your partner's name</a></span>
+										</td> -->
+								<tr>
+									<td colspan=4 align=left><span style="font-size:18px">Final project for 6.7960 | Fall 2024  MIT</span></td>
+								</tr>
+						</table>
+					</div>
+					<div class="margin-right-block">
+					</div>
+		</div>
+
+		<!-- OPENING - SIDE BAR & OPENING PHOTO-->
+		<div class="content-margin-container" id="intro">
+			<!-- # SIDE NAV BAR -->
+			<div class="margin-left-block">
+				<div style="position:fixed; max-width:inherit; top:max(20%,120px)">
+					<b style="font-size:16px">Outline</b><br><br>
+					<a href="#intro">Introduction</a><br><br>
+					<a href="#background">Background</a><br><br>
+					<a href="#method">Methods</a><br><br>
+					<a href="#results">Results</a><br><br>
+					<a href="#implications_and_limitations">Conclusion</a><br><br>
+				</div>
+			</div>
+
+			<!-- OPENING PHOTO-->
+			<div class="main-content-block">
+				<!--You can embed an image like this:-->
+				<!-- <img src="./images/your_image_here.png" width=512px/> -->
+			</div>
+			<div class="margin-right-block">
+				<!-- Caption for the image. -->
+		    </div>
+		</div>
+		
+
+															<!-- # MAIN CONTENT -->
+															 
+<!-- INTRODUCTION -->
+    	<div class="content-margin-container" id="intro">
+			
+			<!-- side nav bar -->
+			<div class="margin-left-block">
+			</div>
+				
+		    <div class="main-content-block">
+				<h1>Introduction</h1>
+				The integration of machine learning (ML) and satellite imagery—often termed Satellite Machine Learning (SatML)—is rapidly transforming the ability to understand the Earth’s surface and address urgent global challenges. 
+				From deforestation monitoring and agricultural productivity assessments to disaster response and urban planning, SatML provides a geospatial lens through which I can observe dynamic patterns at unprecedented scales and frequencies. 
+				High-resolution satellite data, now increasingly available from platforms like Sentinel-2 and Landsat, enables automated, near-real-time analysis. Such capabilities are crucial for stakeholders who must act swiftly to manage resources, preserve ecosystems, and respond to environmental crises (Zhu et al., 2017; Hansen et al., 2013).
+				<br><br>
+				<!-- insert landuse photo -->
+				<img src="./images/landuselandcover.png" width=444px/>
+				<small>Side-by-side panels to show land use/land cover (LULC) change from 2014-2018. Screenshot from Dynamic LULC Change, Chesapeake Conservancy taken 25-October-2022.</small>
+
+				<br><br>
+				In response, researchers are exploring numerous strategies. Some turn to radar sensors (e.g., Sentinel-1) that can penetrate clouds, ensuring continuous data availability. Others develop advanced time-series analysis methods, cloud removal algorithms, or data fusion approaches that integrate optical and radar imagery. 
+				<br><br>
+				As for other challenges in remote sensing, improvements in machine learning are also promising. 
+				Self-supervised and semi-supervised learning methods can help overcome limited annotated datasets, 
+				while domain adaptation techniques tackle the problem of distribution shifts caused by varying imaging conditions. 
+				Transfer learning—where a model is pre-trained on a large, generic dataset and then fine-tuned for a specific task—has emerged as a particularly powerful technique. 
+				It mirrors human learning processes, where prior knowledge accelerates mastery of new tasks. 
+				For satellite imagery, leveraging a pretrained model can significantly reduce the training time and data requirements needed to achieve robust performance,
+				especially when dealing with noisy, complex, and incomplete data.
+				<br><br>
+				This project explores how strategic masking—simulating cloud cover and other occlusions—can enhance the robustness of pretrained models for land cover classification tasks through fine-tuning.
+				<!-- add a gif image here -->
+				<!-- <img src="./images/masked_rgb_image_gauss_satelite_gif.gif" width=128px/> -->
+		    </div>
+
+		    <div class="margin-right-block">
+				
+		    </div>
+		</div>
+
+		
+<!-- Background -->
+		<div class="content-margin-container" id="background">
+			<!-- side nav bar -->
+			<div class="margin-left-block">
+			</div>
+
+		    <div class="main-content-block">
+				<h1>Background</h1>
+				<h4>Beyond RGB: The Complexity of Satellite Machine Learning</h4>
+					While the successes of deep learning on natural images have inspired progress in SatML, direct transfers of these methods are rarely sufficient. Satellite imagery often extends beyond the familiar visible bands (red, green, blue) to include infrared and other spectral bands that provide valuable insights into vegetation health, water content, and mineral composition. 
+					This multimodal data adds complexity and richness, but it also means that models must handle inputs with fundamentally different spectral and spatial characteristics than those found in standard benchmarks like ImageNet. The sheer scale of satellite data—often reaching petabytes—is matched by its diversity, as images differ across seasons, sensor types, geographic regions, and atmospheric conditions (Rolf, E et al., 2024).
+					<br><br>
+					Moreover, distribution shifts—arising from variations in sensor types, atmospheric conditions, seasons, and geographies—challenge models to generalize beyond their training domains. Conventional evaluation metrics, designed for non-spatial tasks, may be insufficient to fully capture the complexity of geospatial predictions and their spatial dependencies (Rolf, E et al., 2024).
+					<br><br>
+					Data scarcity further complicates the scenario. While unlabeled satellite data is abundant, the acquisition of high-quality ground truth labels is expensive and time-consuming, often requiring field surveys or manual annotation by experts. This has fueled research into self-supervised and semi-supervised learning methods, as well as transfer learning approaches that leverage pre-trained models for downstream tasks. Transfer learning has shown promise in enabling rapid adaptation of models to new conditions or tasks, especially when annotated data is limited or heterogeneous (He et al., 2022; Berman et al., 2023).
+					<br><br>
+					Within this context, cloud occlusions represent a critical bottleneck. While radar sensors like Sentinel-1 can penetrate cloud cover, optical data remains essential for detailed spectral analysis. Developing robust methods to handle missing or corrupted optical data is therefore paramount. Approaches include multi-temporal composites (stacking multiple time points to fill in cloudy gaps), cloud detection and removal algorithms, data fusion from radar and optical imagery, and synthetic data augmentation to simulate cloud effects. Each strategy aims to maintain data quality and continuity, enabling the model to extract meaningful features without being derailed by irregularities or missing pixels.
+					<br><br>
+
+				<h4>Model and Data: PRESTO and EuroSAT</h4>
+					To study how strategic masking and other data simulation techniques can improve robustness, this work leverages the PRESTO model. PRESTO is a transformer-based architecture optimized for satellite imagery through a self-supervised pre-training strategy called masked autoencoding (MAE). This approach helps the model learn meaningful representations of multispectral, multitemporal data without relying heavily on labeled examples. Although PRESTO is geared toward pixel-time series data, it also adapts the project to single-timestep imagery—an essential quality for use cases constrained by limited temporal observations (D. Kim et al. 2024).
+					<br><br>
+					This project focuses on land cover classification tasks using the EuroSAT dataset. 
+					EuroSAT provides a harmonized collection of geospatial and statistical data on various land cover classes
+					across Europe. These data include agricultural areas, forests, urban zones, and water bodies, 
+					offering a the well-rounded testbed for evaluating model performance under challenging conditions. 
+					With 10 classes in this dataset, each containing around 2,000 and 3,000 images at 64x64 resolution, 
+					EuroSAT provides ample diversity. 
+					The total of approximately 27,000 images (across train, validation, and test splits) ensures that the 
+					model must learn to generalize across different landscapes, reflectance conditions, and environmental settings.
+					<br><br>
+					EuroSAT data are Sentinel-2 imagery that provides multiple spectral bands, each capturing reflectance at specific wavelengths. 
+					While the Red, Green, and Blue (RGB) bands approximate human vision, Sentinel-2 also offers Near-Infrared (NIR) and Shortwave-Infrared (SWIR) bands, 
+					along with red-edge and coastal aerosol bands. 
+					These extra bands provide insights into aspects of the landscape that are invisible in standard RGB:
+					<ul>
+						<li>Coastal and Blue Bands: Help assess atmospheric conditions, water clarity, and coastal habitats.
+						<li>Green and Red Bands: Capture basic vegetation and soil features visible to the human eye.
+						<li>Red-Edge Bands: Sensitive to subtle changes in vegetation health and chlorophyll content.
+						<li>Near-Infrared (NIR) Bands: Distinguish between vegetation and bare ground, and gauge plant vitality.
+						<li>Shortwave-Infrared (SWIR) Bands: Provide information on soil moisture, plant water content, and mineral composition.
+					</ul>		
+					See appendix for a list of different satelites, bands, and their applications.			
+					<br><br>				
+					The primary question driving this investigation is how different cloud-masking strategies affect the robustness of fine-tuned models. By simulating cloud occlusions and other forms of data degradation in training data, the project aim to encourage the model to learn more generalized and resilient representations. Ultimately, this approach can yield improved performance on real-world tasks, where perfect imaging conditions are rarely guaranteed. In doing so, the project sheds light on practical methods for accelerating the adoption of SatML in time-sensitive applications—from deforestation alerts that inform conservation efforts to rapid assessments of flood extent that guide disaster response.
+					<br><br>
+					In summary, by merging advanced pretrained architectures like PRESTO with datasets like EuroSAT and carefully curated masking strategies, this project seeks to investigate what is possible in satellite-based land cover monitoring.
+					<br><br>
+<!-- 
+				<center>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+					<mrow>
+						<mrow>
+						<mo>&#x2202;</mo>
+						<mi>y</mi>
+						</mrow>
+						<mo>/</mo>
+						<mrow>
+						<mo>&#x2202;</mo>
+						<mi>x</mi>
+						</mrow>
+					</mrow>
+					<mo>=</mo>
+					<mi>x</mi>
+					</math>
+				</center>
+				<br>
+
+				It's probably best to ask an LLM to help do the web
+				formatting for math. You can tell it "convert this latex equation into MathML: $$\frac{\partial dy}{\partial dx} = x$$"
+				But it took me a few tries. So, if you get frustrated, you can embed an image of the equation, or use other packages for
+				rendering equations on webpages. -->
+		    </div>
+
+		    <div class="margin-right-block" style="transform: translate(0%, -100%);"> <!-- you can move the margin notes up and down with translate -->
+          		.
+		    </div>
+		</div>
+
+
+<!-- Methods -->
+		<div class="content-margin-container" id="method">
+			<!-- side nav bar -->
+			<div class="margin-left-block">
+			</div>
+
+			<div class="main-content-block">
+			<h1>Methods</h1>
+
+				<h4>Objectives and Hypotheses</h4>
+					The primary objective of this work is to investigate how different masking strategies—designed to simulate cloud cover—affect 
+					a pretrained model’s ability to generalize and remain robust under noisy conditions. 
+					Specifically, the project aims to determine the optimal masking percentage and modality that 
+					push the model toward more effective feature learning, enabling it to handle occlusions and 
+					atmospheric artifacts commonly found in real-world satellite imagery. 
+					By systematically varying the masking parameters and evaluating the model’s performance 
+					on a land cover classification task, the project aim to uncover insights that can inform 
+					the design of more resilient SatML systems.	
+					<br><br>
+					The central hypothesis is that a moderate level of masking (approximately 10% - 30%) will yield the best results, 
+					and high reflectance mask performs better than data removal mask. 
+					At this level, the model encounters enough partial occlusions to learn more generalizable representations without being overwhelmed by missing information. 
+					In other words, a modest amount of masking should force the model to develop a more holistic understanding of the input data, 
+					leading to improved robustness on subsequent test scenarios with varying degrees of cloud cover.
+					<br><br>
+
+				<h4>Pre-Training and Fine-Tuning Setup</h4>
+					Before experimenting with different masking strategies, I established a baseline fine-tuning configuration on the PRESTO pretrained model. 
+					Since my ultimate goal is to incorporate masking that simulates cloud cover conditions, 
+					I first defined a set of architectural and hyperparameter decisions based on preliminary experiments:
+					<br><br>
+
+					<ol>
+						<li>Hyperparameters: 
+							<ul>
+								<li>Loss function: A standard cross-entropy loss function for the land cover classification task. This choice is motivated by the simplicity and effectiveness of cross-entropy in supervised learning settings.</li>
+								<li>Optimization: Employed the Adam optimizer with a learning rate of 0.0003. Adam is a popular choice for deep learning tasks due to its adaptive learning rate properties and efficient convergence behavior.</li>
+								<li>Training schedule: Trained the model for 20 epochs on the EuroSAT dataset, with early stopping, using a batch size of 64. This configuration achieves a balance between training time and model convergence, ensuring that the model has sufficient exposure to the data.</li>
+								<li>Patch Size: chose a 16×16 patch size as a suitable compromise between spatial granularity and computational efficiency.</li>
+							</ul>
+						<br><br>
+						<li>Fine-Tuning Head Complexity: 
+							I evaluated a one-layer versus a three-layer Multi-Layer Perceptron (MLP) as the classification head. The three-layer MLP head consistently outperformed the single-layer variant, providing a richer parameterization and improved capacity to translate learned representations into accurate class predictions.					
+						<br><br>
+						<li>Mask Patterns:
+							I compared Gaussian masks with random masks to determine which masking pattern better simulates realistic cloud cover. 
+							Gaussian masks, characterized by smoother transitions and shape continuity, more closely resembled natural cloud formations and yielded substantially better results than purely random masking patterns. 
+							This choice ensures that the occlusions introduced during training align more closely with the actual phenomena I aim to handle.
+							<!-- insert photo -->
+							<br><br>
+							<center>
+							<table>
+								<tr>
+									<td><img src="./images/masked_rgb_image_rand_satelite_gif.gif" width=222px/></td>
+									<td><img src="./images/masked_rgb_image_gauss_satelite_gif.gif" width=222px/></td>
+								</tr>
+							</table>
+							</center>
+							<center><small> Left: Random mask pattern | Right: Gaussian mask pattern</small></center>
+						<br><br>
+						<li>Mask Values (Data Removal vs Reflectance Representation):
+							To simulate cloud coverage, I tested two primary masking value strategies. First, a simple approach set masked pixels to an extreme value (RGB=-9999), effectively nullifying those regions. 
+							However, this abrupt contrast was less effective at simulating realistic cloud conditions, where light scattering typically renders clouded areas as brighter regions. 
+							A second approach, setting masked areas to near-white values, produced results more consistent with real-world cloud appearances and improved model performance. 
+							High reflectance masking is achieved by setting RGB values to a range between 0.7 and 1.0 to emulate varying degrees of cloud brightness. 
+							Both masking strategies were evaluated across different masking percentages to determine the optimal balance between occlusion and information retention.
+							<center>
+								<table>
+									<tr>
+										<td><img src="./images/masked_rgb_image_gauss4.png" width=222px/></td>
+										<td><img src="./images/masked_rgb_image_gauss_black1.png" width=222px/></td>
+									</tr>
+								</table>
+							</center>
+							<center><small> Left: High Reflectance Mask (value: 0.7~1) | Right: Null Mask (value: -9999) </small></center>
+						<br><br>
+						<li>Freezing vs. Non-Freezing Pretrained Weights:
+							I tested whether to freeze the pretrained model’s weights or allow them to update during fine-tuning. Unfreezing the pretrained weights and allowing the entire model to adapt to the masked training scenarios resulted in significantly better performance. 
+							This suggests that the pretrained features, while already robust, still benefit from fine-grained adjustments when exposed to my specialized data augmentations.
+					</ol>
+				
+				<h4>Experiment 1: Multispectral Masking and Robustness</h4>
+					In my first experiment, I assessed how masking affects model robustness when using all available Sentinel-2 Bands (except channel 1 and 8A), resulting in 11 bands. This multispectral setup provides the model with a rich feature space that captures various environmental and atmospheric properties beyond the visible spectrum.
+					<br><br>
+					Mask Value Strategy: For this full-channel experiment, I set masked pixels to an invalid value (e.g., -9999) to indicate complete data removal. Brightness alteration was also tested. This approach allowed me to simulate not only cloud occlusions but also sensor dropout or data corruption.
+					<br><br>
+					Mask Percentages: I trained separate models with 0%, 10%, 30%, 50%, and 60% masked areas. Additionally, I introduced a random masking strategy (varying between 0% and 70%) during training. Each trained model was then tested on evaluation sets containing between 0% and 80% masked regions. This systematic approach enabled me to thoroughly analyze how varying levels of masking during training influence performance when confronted with a wide spectrum of occlusion intensities at test time.
+					<br><br>
+				<h4>Experiment 2: RGB-Only Scenario</h4>
+					Although Sentinel-2 provides multispectral data, many legacy remote sensing models and operational systems rely on simple RGB inputs due to their broad availability and ease of interpretation. 
+					To evaluate how well PRESTO adapts to such constraints, I conducted a second experiment using only the RGB bands.
+					<br><br>
+					Mask Value Strategy for RGB: Similar to the multispectral experiement, I simulated cloud coverage by applying a high reflectance masking value by sampled random values between 0.7 to 1.0 to represent the cloud, 
+					thus creating a more realistic and varied occlusion pattern compared to a single high reflectance value. 
+					Masking pixels to an invalid value (e.g., -9999) is also tested to assess the impact of complete data removal.
+
+					<br><br>
+					Training and Testing Under Occlusion: Similar to the multispectral experiment, 
+					I trained on varying levels of masked data and tested the resulting models against increasingly severe occlusions. 
+					By comparing the performance of the RGB-only model to the multispectral counterpart, 
+					I gained insights into how additional spectral information influences robustness and 
+					what trade-offs exist when limiting the data to visible bands.
+					
+					<br><br>
+
+			</div>
+
+			<div class="margin-right-block" style="transform: translate(0%, -100%);"> <!-- you can move the margin notes up and down with translate -->
+				.
+			</div>
+		</div>
+
+
+<!-- Results -->
+		<div class="content-margin-container" id="results">
+			<!-- side nav bar -->
+			<div class="margin-left-block">
+			</div>
+
+			<div class="main-content-block">
+			<h1>Results</h1>
+				<h4>Overview of the Experiment</h4>
+					This experiment evaluates the performance of fine-tuned models using different masking strategies on Sentinel-2 satellite imagery. 
+					The models were trained using either all Bands, elaborated on analysis Part A, or only RGB channels, elaborated on analysis Part B, 
+					from Sentinel-2 images, each with two masking approaches:
+					High Reflectance Mask: Setting all values in the masked pixels to a random number between 0.7 and 1 (same value across all bands); 
+					Null Mask: Setting the masked pixel values to -9999.
+					In total, there are 4 scenarios studied.
+					<br><br>
+				<h2>Result Analysis Part A - Masking Strategies when all bands from Sentinel-2 are available</h2>
+					<h4>Overall Performance</h4>
+						The results show that both masking strategies yield relatively high performance, with mean F1-scores and accuracies above 0.7 for both approaches. However, the High Reflectance Mask consistently outperforms the Null Mask:
+						High Reflectance Mask: Mean F1-Score = 0.78, Mean Accuracy = 0.79
+						Null Mask: Mean F1-Score = 0.71, Mean Accuracy = 0.73
+						<br><br>
+						<img src="./images/accuracy_f1_comparison_all_channels.png" width=777px/>
+						<!-- make a 2 by 4 table with grid -->
+						<br><br>
+						Here are the accuracy and F1-Score results for each trained model evaluated by the range of percentages of masked pixels:
+						<br><br>
+						<img src="./images/AC_accuracy_bytrainpercent_AllCh_white.png" width=1111px/>
+						<center><small> Accuracy by Different Percent of Masking on Training - All Bands - High Reflectance Mask</small></center>
+						<br><br>
+						<img src="./images/ACB_accuracy_bytrainpercent_AllCh_black.png" width=1111px/>
+						<center><small>  Accuracy by Different Percent of Masking on Training - All Bands - Null Mask</small></center>
+						<br><br>
+						Null masking likely introduces discontinuities in data, reducing the ability to interpolate masked regions effectively. This could lead to lower overall accuracy compared to the high reflectance mask. By setting masked pixels to reflectance values (0.6 to 1), the strategy mimics spectral properties seen in highly reflective surfaces (e.g., water, urban materials). This helps maintain continuity in spectral data, enabling models to learn patterns in the context of realistic reflectance values. This explains the consistently higher accuracy.
+						In addition, Reflectance Mask may act as a form of augmentation, simulating reflective surfaces like snow or water. Null Mask lacks this advantage.
+						<br><br>
+						Each plotted line is a model trained on a different percentage of masked pixels
+						<br><br>
+						<img src="./images/AC_accuracy_animation_AllCh_white.gif" width=777px/>
+						<center><small> Accuracy by Different Percent of Masking on Training - All Bands - High Reflectance Mask</small></center>
+
+						<br><br>
+						<img src="./images/ACB_accuracy_animation_AllCh_black.gif" width=777px/>
+						<center><small>  Accuracy by Different Percent of Masking on Training - All Bands - Null Mask</small></center>
+					
+						<br><br>
+						This suggests that preserving some information in the masked areas (by using high reflectance values) is more productive for the model's learning process than completely nullifying the masked pixels.
+						<br><br>
+
+					<h4>Performance Across Classes</h4>
+						To understand how masking strategies affect class-specific performance, I analyzed the Accuracy and F1-scores for each class. The results reveal distinct patterns:
+						<br><br>
+						<img src="./images/AC_accuracy_byclass_AllCh_white.png" width=1111px/>
+						<center><small> Accuracy by class - All Bands - High Reflectance Mask</small></center>
+						<br><br>
+						<img src="./images/ACB_accuracy_byclass_AllCh_black.png" width=1111px/>
+						<center><small> Accuracy by class - All Bands - Null Mask</small></center>
+						<br><br>
+						High Reflectance Classes (e.g., SeaLake, River): Both strategies perform well on these classes, with the high reflectance Mask slightly outperforming. High reflectance values align naturally with these classes, making the high reflectance Mask’s artificial reflectance a better approximation than the Null Mask.
+						<br><br>
+						Low Reflectance Classes (e.g., Forest, Pasture): The Null Mask leads to greater inaccuracies in low-reflectance classes. Extreme outliers (-9999) disrupt learned feature distributions, making models less effective in predicting low-reflectance areas.
+						<br><br>
+						Transitional Classes (e.g., Herbaceous Vegetation, Residential): These classes are sensitive to both masking strategies, with the high reflectance Mask showing better robustness. The high reflectance Mask maintains spectral patterns for these mixed-use or heterogeneous classes, whereas the Null Mask’s outliers create ambiguities.
+						<br><br>
+						Highway Class: Both accuracy and F1 scores are consistently lower compared to other classes. Extreme outlier values (-9999) make it difficult for the model to accurately predict highways, which are narrow, linear features often surrounded by heterogeneous land types. The improvement is likely due to the continuity provided by reflectance-like values (0.6–1), which are closer to the spectral characteristics of concrete or asphalt.
+						<br><br>
+						This suggests that preserving some information in the masked areas (by using high reflectance values) is more productive for the model's learning process than completely nullifying the masked pixels.
+						<br><br>
+
+				<h2>Result Analysis Part B - Masking Strategies when only RGB bands are available</h2>
+					<h4>Overall Performance</h4>
+						The results show that high reflectance masking consistently outperforms null masking across all masking percentages. 
+						At 0% training mask (baseline), both strategies achieve similar accuracy (84.7%), but the performance gap widens as masking increases.
+						Models trained with high reflectance masking retain higher robustness and accuracy compared to those trained with null masking, especially as test masking percentages grow.						
+						<br><br>
+						<img src="./images/accuracy_f1_comparison_RGB.png" width=777px/>
+						<!-- make a 2 by 4 table with grid -->
+						Here are the accuracy and F1-Score results for each trained model evaluated by the range of percentages of masked pixels:
+						<br><br>
+						<img src="./images/RGB_accuracy_f1_bytrainpercent_RGB_white.png" width=1111px/>
+						<center><small> Accuracy by Different Percent of Masking on Training - RGB - High Reflectance Mask</small></center>
+						<br><br>
+						<img src="./images/RGB_accuracy_f1_bytrainpercent_RGB_black.png" width=1111px/>
+						<center><small>  Accuracy by Different Percent of Masking on Training - RGB - Null Mask</small></center>
+						<br><br>
+						For High Reflectance Masking, performance degradation is gradual and controlled with increasing test masking percentages. Models maintain reasonable accuracy (>70%) even with 30% masked pixels in the test data if trained with at least 10% masking. When models are trained with up to 60% masked data, they still achieve >60% accuracy when tested under similar masking conditions, showcasing resilience.
+						For Null Masking, performance drops steeply with increasing test masking percentages, reflecting a lack of adaptability. Accuracy falls below 50% when test masking exceeds 40%, indicating poor handling of masked data. This rapid deterioration suggests that the extreme negative values (-9999) used in null masking disrupt the model’s generalization ability.
+						<br><br>
+						Each plotted line is a model trained on a different percentage of masked pixels
+						<br><br>
+						<img src="./images/RGB_accuracy_animation_RGB_white.gif" width=777px/>
+						<center><small> Accuracy by Different Percent of Masking on Training - RGB - High Reflectance Mask</small></center>
+
+						<br><br>
+						<img src="./images/RGB_accuracy_animation_RGB_black.gif" width=777px/>
+						<center><small>  Accuracy by Different Percent of Masking on Training - RGB - Null Mask</small></center>
+					
+						<br><br>
+						High reflectance masking enables better generalization to higher masking percentages, showing adaptability across varying test conditions. Training with 30-50% masked pixels offers the optimal balance between performance and robustness, allowing models to adapt to both low and high levels of test masking. Null masking, on the other hand, fails to generalize effectively to test conditions beyond the training mask percentage.
+						The best performance is achieved when models are trained with a random percentage of masking. This exposure to occlusions handle missing data more effectively, leading to improved generalization.
+						<br><br>
+
+					<h4>Performance Across Classes</h4>
+						Same as for part A, to understand how masking strategies affect class-specific performance when only RGB bands are available, I analyzed the Accuracy and F1-scores for each class. The results reveal distinct patterns:
+						<br><br>
+						<img src="./images/RGB_accuracy_byclass_RGB_white.png" width=1111px/>
+						<center><small> Accuracy by class - RGB Bands - High Reflectance Mask</small></center>
+						<br><br>
+						<img src="./images/RGB_accuracy_byclass_RGB_black.png" width=1111px/>
+						<center><small> Accuracy by class - RGB Bands - Null Mask</small></center>
+						<br><br>
+						High reflectance masking demonstrates superior class-wise performance, achieving better F1 scores across most land cover categories.
+						<br><br>
+						It is particularly effective for complex and nuanced classes like Residential and Industrial areas, which are challenging to classify.
+						<br><br>
+						In challenging categories such as Rivers and Highways, high reflectance masking maintains more stable accuracy and F1 scores, indicating its robustness in diverse scenarios.
+						<br><br>
+						The results strongly favor high reflectance masking as the superior strategy for handling masked pixels in satellite imagery classification tasks. Its ability to:
+						gradually degrade performance with increasing masking;
+						generalize well to unseen test conditions, and
+						maintain robust class-wise performance makes it a highly effective and practical choice compared to null masking.
+						<br><br>
+						The findings emphasize the importance of realistic masking strategies, such as high reflectance masking, for improving the robustness and accuracy of machine learning models in remote sensing applications.
+
+			</div>
+
+			<div class="margin-right-block" style="transform: translate(0%, -100%);"> <!-- you can move the margin notes up and down with translate -->
+				.
+			</div>
+		</div>
+
+<!-- Conclusion -->
+		<div class="content-margin-container" id="implications_and_limitations">
+			<!-- side nav bar -->
+			<div class="margin-left-block">
+			</div>
+			<div class="main-content-block">
+				<h1>Conclusion, Limitations & Discussions</h1>
+					The experiments suggest that using a High Reflectance Masking strategy offers notable benefits in terms of model robustness and generalization when finetuning a pretrained SatML model for land use classification task. 
+					By preserving some spectral information in occluded regions—mimicking realistic cloud reflectance patterns rather than nullifying those pixels completely—the model can maintain higher accuracy across various training and testing conditions. Surprisingly, the results show that applying moderate to substantial masking levels (e.g., around 50%) or training with a randomly sampled range of masking intensities (0–70%) can outperform minimal masking (0–10%). This indicates that controlled exposure to a range of occlusions during training encourages the model to develop more flexible and generalizable features.
+					<br><br>
+					The results from the RGB-only experiments further reinforce the advantages of high reflectance masking over null masking. While both strategies performed similarly in the absence of masked pixels, their differences became clear as occlusions increased. High reflectance masking provided a smoother, more controlled degradation in accuracy and consistently outperformed null masking across a range of training and testing mask percentages. Models trained with this approach proved more adaptable, maintaining reasonable accuracy even at high masking levels, and exhibited stronger class-wise performance across diverse land cover types, including challenging categories like Residential, Industrial, Rivers, and Highways.
+					<br><br>
+					Overall, these findings underscore the importance of choosing more realistic, high reflectance masking strategies to improve model robustness, adaptability, and overall accuracy in remote sensing tasks. By employing masking methods that closely mimic real-world conditions, practitioners can enhance model performance and reliably scale satellite-based land cover classification to more challenging environments.
+					<br><br>
+					<h4>Limitations and topics for further study</h4>
+					Class-Specific Adaptations -
+					Performance differences among classes, particularly the ongoing challenges in classifying Residential and Permanent Crop areas, highlight opportunities for class-specific strategies. Tailoring the masking levels or data augmentation techniques per class—or incorporating additional spatial and temporal context—may help overcome subtle spectral similarities and improve class-specific accuracy.
+					<br><br>
+					Enhancing Highway Detection -
+					The model’s difficulty in accurately identifying highways, which often appear as narrow, linear features spanning only a few pixels, underscores a common limitation in satellite-based classification. Future work could reduce patch sizes, introduce edge-detection preprocessing steps, or integrate spatial convolutional layers to better capture linear patterns. These refinements may also address spectral overlaps and improve the model’s capacity to distinguish highways from urban or impervious surfaces.
+					Further Directions
+					<br><br>
+					Incorporating Real Cloud Data -
+					While simulated masking provides controlled experimentation, integrating actual cloud-covered imagery could offer deeper insights. Using real-world conditions for training and testing might improve realism and better reflect operational constraints.
+					<br><br>
+					Advanced Cloud Handling Techniques -
+					Beyond masking, a variety of additional strategies—such as multi-temporal composites, probabilistic cloud detection, and interpolation methods—merit exploration. Combining these techniques with High Reflectance Masking may yield models that are even more resilient to atmospheric interference.
+					<br><br>
+					Interpreting Model Decisions -
+					Investigating why High Reflectance Masking outperforms null masking—potentially through attention maps, feature importance analyses, or saliency methods—could reveal how the model leverages subtle spectral cues. Such understanding can guide the design of future models and data augmentation strategies.
+					Refining the Modeling Pipeline
+					<br><br>
+					Finally, this project made me realize the importance of a well-organized and clearly documented codebase as an open-sourced project. 
+					I spent a significant amount of time understanding the model and code base. Streamlining the model’s implementation, clarifying code structures, 
+					and adding thorough documentation can make these advanced techniques more accessible to practitioners and researchers. 
+					<br><br>
+					Through continued experimentation, more refined masking strategies, and careful attention to model interpretability and code clarity, I hope to advance towards more robust, scalable, and operationally useful satellite-based land cover classification systems.
+
+			</div>
+			<div class="margin-right-block">
+			</div>
+		</div>
+
+<!-- Citation  -->
+		<div class="content-margin-container" id="citations">
+				<div class="margin-left-block">
+				</div>
+		    <div class="main-content-block">
+						<div class='citation' id="references" style="height:auto"><br>
+							<span style="font-size:16px">References:</span><br><br>
+							<!-- <a id="ref_1"></a>[1] <a href="https://en.wikipedia.org/wiki/Allegory_of_the_cave">Allegory of the Cave</a>, Plato, c. 375 BC<br><br>
+							<a id="ref_2"></a>[2] <a href="">A Human-Level AGI</a>, OpenAI, 2025<br><br> -->
+							<ul>
+								<li>D. Kim, N. M. Rahman and S. Mukhopadhyay, "PRESTO: A Processing-in-Memory-Based k-SAT Solver Using Recurrent Stochastic Neural Network With Unsupervised Learning," in IEEE Journal of Solid-State Circuits, vol. 59, no. 7, pp. 2310-2320, July 2024, doi: 10.1109/JSSC.2024.3352585.
+								<li>Rolf, E., Basu, S., Beery, S., Brandt, C., Choi, D., Efremova, N., ... & Yosinski, J. (2024). Mission Critical -- Satellite Data is a Distinct Modality in Machine Learning. arXiv preprint arXiv:2402.01444.
+								<li>Zhu, X. X., Tuia, D., Mou, L., Xia, G. S., Zhang, L., Xu, F., & Fraundorfer, F. (2017). Deep Learning in Remote Sensing: A Comprehensive Review and List of Resources. IEEE Geoscience and Remote Sensing Magazine, 5(4), 8–36.
+								<li>Hansen, M. C., Potapov, P. V., Moore, R., Hancher, M., Turubanova, S. A., Tyukavina, A., … & Townshend, J. R. G. (2013). High-Resolution Global Maps of 21st-Century Forest Cover Change. Science, 342(6160), 850–853.
+								<li>Zhu, Z., & Woodcock, C. E. (2012). Object-based cloud and cloud shadow detection in Landsat imagery. Remote Sensing of Environment, 118, 83–94.
+								<li>Helber, P., Bischke, B., Dengel, A., & Borth, D. (2019). EuroSAT: A Novel Dataset and Deep Learning Benchmark for Land Use and Land Cover Classification. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, 12(7), 2217–2226.
+								<li>He, K., Chen, X., Xie, S., Li, Y., Dollár, P., & Girshick, R. (2022). Masked Autoencoders Are Scalable Vision Learners. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 16000–16009).
+								<li>Berman, R. C. S., Li, W., Makarau, A., & Ghamisi, P. (2023). Self-Supervised Learning for Remote Sensing: An Introduction and Review of State-of-the-Art Methods. IEEE Geoscience and Remote Sensing Magazine (Early Access).
+								<li>@misc{tseng2023lightthe projectight,
+									title={Lightthe projectight, Pre-trained Transformers for Remote Sensing Timeseries},
+									author={Gabriel Tseng and Ruben Cartuyvels and Ivan Zvonkov and Mirali Purohit and David Rolnick and Hannah Kerner},
+									year={2023},
+									eprint={2304.14065},
+									archivePrefix={arXiv},
+									primaryClass={cs.CV}
+							}
+						</ul>
+						  
+						</div>
+		    </div>
+		    <div class="margin-right-block">
+            <!-- margin notes for reference block here -->
+		    </div>
+		</div>
+
+<!-- Conclusion -->
+<div class="content-margin-container" >
+	<!-- side nav bar -->
+	<div class="margin-left-block">
+	</div>
+	<div class="main-content-block">
+		<h1>Appendix</h1>
+			<img src="./images/Deep Learning Final Project _Page_12.png" width=1111px/>
+			<br><br>
+			<img src="./images/Deep Learning Final Project _Page_13.png" width=1111px/>
+			<br><br>
+	</div>
+	<div class="margin-right-block">
+	</div>
+</div>
+
+	</body>
+
+</html>
+
+<style type="text/css">
+	body {
+		background-color: #f5f9ff;
+	}
+
+	/* Hide both math displays initially, will display based on JS detection */
+  .mathjax-mobile, .mathml-non-mobile { display: none; }
+
+  /* Show the MathML content by default on non-mobile devices */
+  .show-mathml .mathml-non-mobile { display: block; }
+  .show-mathjax .mathjax-mobile { display: block; }
+
+	.small-text {
+		font-size: 4px;
+		width: 444px;
+	}
+	
+	.content-margin-container {
+		display: flex;
+		width: 100%; /* Ensure the container is full width */
+		justify-content: left; /* Horizontally centers the children in the container */
+		align-items: center;  /* Vertically centers the children in the container */
+	}
+	.main-content-block {
+		width: 70%; /* Change this percentage as needed */
+    max-width: 1100px; /* Optional: Maximum width */
+		background-color: #fff;
+		border-left: 1px solid #DDD;
+		border-right: 1px solid #DDD;
+		padding: 8px 8px 8px 8px;
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;#"Avenir";
+	}
+	.margin-left-block {
+			font-size: 14px;
+			width: 15%; /* Change this percentage as needed */
+			max-width: 150px; /* Optional: Maximum width */
+			position: relative;
+			margin-left: 10px;
+			text-align: left;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;#"Avenir";
+			padding: 5px;
+	}
+	.margin-right-block {
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;#"Avenir";
+			font-size: 14px;
+			width: 25%; /* Change this percentage as needed */
+			max-width: 256px; /* Optional: Maximum width */
+			position: relative;
+			text-align: left;
+			padding: 10px;  /* Optional: Adds padding inside the caption */
+	}
+
+	img {
+			max-width: 100%; /* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+	}
+	.my-video {
+			max-width: 100%; /* Make sure it fits inside the container */
+			height: auto;
+			display: block;
+			margin: auto;
+	}
+	/* Hide both video displays initially, will display based on JS detection */
+  .vid-mobile, .vid-non-mobile { display: none; }
+
+  /* Show the video content by default on non-mobile devices */
+  .show-vid-mobile .vid-mobile { display: block; }
+  .show-vid-non-mobile .vid-non-mobile { display: block; }
+
+	a:link,a:visited
+	{
+		color: #0e7862; /*#1367a7;*/
+		text-decoration: none;
+	}
+	a:hover {
+		color: #24b597; /*#208799;*/
+	}
+
+	h1 {
+		font-size: 24px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	table.header {
+    font-weight: 300;
+    font-size: 17px;
+    flex-grow: 1;
+		width: 70%;
+    max-width: calc(100% - 290px); /* Adjust according to the width of .paper-code-tab */
+	}
+	table td, table td * {
+	    vertical-align: middle;
+	    position: relative;
+	}
+	table.paper-code-tab {
+	    flex-shrink: 0;
+	    margin-left: 8px;
+	    margin-top: 8px;
+	    padding: 0px 0px 0px 8px;
+	    width: 290px;
+	    height: 150px;
+	}
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+
+	hr {
+    height: 1px; /* Sets the height of the line to 1 pixel */
+    border: none; /* Removes the default border */
+    background-color: #DDD; /* Sets the line color to black */
+  }
+
+	div.hypothesis {
+		width: 80%;
+		background-color: #EEE;
+		border: 1px solid black;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		font-family: Courier;
+		font-size: 18px;
+		text-align: center;
+		margin: auto;
+		padding: 16px 16px 16px 16px;
+	}
+
+	div.citation {
+    font-size: 0.8em;
+    background-color:#fff;
+    padding: 10px;
+		height: 200px;
+  }
+
+	.fade-in-inline {
+		position: absolute;
+		text-align: center;
+		margin: auto;
+		-webkit-mask-image: linear-gradient(to right,
+												transparent 0%,
+												transparent 40%,
+												black 50%,
+												black 90%,
+												transparent 100%);
+		mask-image: linear-gradient(to right,
+												transparent 0%,
+												transparent 40%,
+												black 50%,
+												black 90%,
+												transparent 100%);
+		-webkit-mask-size: 8000% 100%;
+		mask-size: 8000% 100%;
+		animation-name: sweepMask;
+		animation-duration: 4s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		animation-delay: -1s;
+	}
+
+	.fade-in2-inline {
+			animation-delay: 1s;
+	}
+
+	.inline-div {
+			position: relative;
+	    display: inline-block; /* Makes both the div and paragraph inline-block elements */
+	    vertical-align: top; /* Aligns them at the top, you can adjust this to middle, bottom, etc., based on your needs */
+	    width: 50px; /* Optional: Adds space between the div and the paragraph */
+	}
+
+</style>
+
