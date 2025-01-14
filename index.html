@@ -28,9 +28,9 @@
       top: 0;           /* Required for sticky positioning */
       overflow-y: auto; /* In case content is taller than viewport */
     }
-    @media (max-width: 1100px) {
+    @media (max-width: 1000px) {
       nav {
-        width: 30%;
+        width: 36%;
       }
     }
 
@@ -250,20 +250,25 @@
     <p>
         Hello 👋
         <br><br>
-        I'm Becky Xu, a Master of City Planning student at MIT 👩‍💻
+        I'm Becky Xu, a Master of City Planning student at MIT.
         <br><br>
-        I have been proudly building and shipping projects, products, and research at the intersection of AI/ML and sustainability for our climate-resilient future. 
+        I have been proudly developing climate and sustainability research and products with my skillsets in AI/ML, data science, and design. 
         <br>
-        Here are some categories of my past projects:
+        One of current projects includes scope 3 emission data analysis, data visualization, and stakeholder engagement strategies with MIT Office of Sustainability, contributing to the MIT net-zero emission goal.
+        <br><br>
+        Explore collections of my past completed projects here:
     </p>
     <br><br>
     <ul>
       <li><a href="#machine-learning">AI/ML</a></li>
-      <li><a href="#design">Design & Dev</a></li>
-      <li><a href="#research">Research</a></li>
+      <li><a href="#research">Research & Analysis</a></li>
+      <li><a href="#design">Design & Product</a></li>
     </ul>
     <br>
-
+    <p>
+      Some of my other research experience includes renewable energy, environmental justice, and sustainable urban development.  
+    </p>
+    <br><br>
     <p>
         If you'd like to chat, feel free to reach out to me through email or LinkedIn!
     </p>
@@ -288,7 +293,7 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Machine Learning Section -->
+    <!-- AI/ML Section -->
     <section id="machine-learning">
       <h1>AI/ML</h1>
       <div class="project-grid">
@@ -302,9 +307,10 @@
               <h3> Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact</h3>
               <div class="tags">
                 <span class="tag">Deep Learning</span>
-                <span class="tag">Machine Learning</span>
                 <span class="tag">Remote Sensing</span>
-                <span class="tag">Landuse Classification</span>
+                <span class="tag">Python</span>
+                <span class="tag">Pytorch</span>
+                <span class="tag">#Landuse Classification</span>
               </div>
             </div>
         </a>
@@ -340,9 +346,81 @@
     </section>
     <br><br>
 
-    <!-- Design Section -->
+    <!-- Research & Analysis Section -->
+    <section id="research">
+      <h1>Research & Analysis</h1>
+      <div class="project-grid">
+        <a href="Project-Research/research-ag.pdf" target="_blank" class="project-link">
+          <div class="project-card">
+            <img src="/img/cover-ag2.png?height=200&width=300" alt="professional work from alpha geo" />
+            
+            <div class="description">
+              I Developed over a dozen global datasets on climate risks and socio-economic conditions during my work at a climate-tech startup, AlphaGeo.
+              <br>
+              I conducted research, data sourcing, and processing to create 1km resolution datasets and automated pipelines. In addition, I developed the "resilience-adjusted risk score" methodology with the CTO to evaluate risks under climate change scenarios.
+            </div>
+
+            <h3>Global Climate & Social Economic Resilience Adjusted Risk</h3>
+            <div class="tags">
+              <span class="tag">Research</span>
+              <span class="tag">Data Engineering</span>
+              <span class="tag">Data Science</span>
+              <span class="tag">Back-End Dev</span>
+              <span class="tag">Product Development</span>
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">#Climate Risks</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="Project-Research/research-cddl.pdf" target="_blank" class="project-link">
+          <div class="project-card">
+            <img src="/img/cover-cddl.png?height=200&width=300" alt="research at mit civic data & designlab" />
+            
+            <div class="description">        
+              This project, developed for the MIT Civic Data & Design Lab (CDDL) in spring 2023, 
+              investigates the transformation of Beirut's urban form and its impact on small businesses and street commerce.
+              <br>
+              I conducted spatial and data analysis, data visualization, and GIS mapping to analyze the spatial distribution of small businesses and street commerce in Beirut.
+            </div>
+
+            <h3>Beirut Urban Analysis: Small Businesses, Street Commerce & City Form Transformation</h3>
+            <div class="tags">
+              <span class="tag">Research</span>
+              <span class="tag">Data Analysis</span>
+              <span class="tag">Data Visualization</span>
+              <span class="tag">GIS</span>
+              <span class="tag">R</span>
+              <span class="tag">#UrbanAnalysis</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/beckyxu-design/MIT_Projects_Public/blob/main/Quantitative_Reasoning/Final%20Presentation/11.220_Health_Insurance_Inequality_NYC_BeckyXu.pdf" target="_blank" class="project-link">
+            <div class="project-card">
+              <img src="/img/cover-qr22.png?height=200&width=300" alt="Machine Learning Project 1" />
+              <div class="description">
+                This project is developed for 11.220 Quantitative Reasoning class at MIT in fall 2022. 
+                I investigated the health insurance inequality in NYC using data from the American Community Survey (ACS) 2015 - 2019.
+              </div>
+              <h3>1 Million Gap: Health Insurance Inequality in NYC</h3>
+              <div class="tags">
+                <span class="tag">Data Analysis</span>
+                <span class="tag">Linear Regression</span>
+                <span class="tag">GIS</span>
+                <span class="tag">R</span>
+                <span class="tag">#Public Health</span>
+              </div>
+            </div>
+        </a>
+      </div>
+    </section>
+    <br><br>
+
+    <!-- Design & Dev Section -->
     <section id="design">
-      <h1>Design & Dev</h1>
+      <h1>Design & Product</h1>
       <div class="project-grid">
         <a href="https://beckyxu-design.github.io/AffordableEnergy_Philly_WebPrototype/" target="_blank" class="project-link">
             <div class="project-card">
@@ -359,10 +437,46 @@
               <div class="tags">
                 <span class="tag">Web Dev</span>
                 <span class="tag">Web Design</span>
+                <span class="tag">UI/UX</span>
                 <span class="tag">HTML/CSS</span>
                 <span class="tag">Javascript</span>
               </div>
             </div>
+        </a>
+
+        <a href="https://mitec-club.org/" target="_blank" class="project-link">
+          <div class="project-card">
+            <img src="/img/cover-mitec.png?height=200&width=300" alt="mitec website" />
+            <div class="description">
+              Redesigned the MIT Energy & Climate Club website to improve user experience and visual design.
+            </div>
+            <h3>MIT Energy & Climate Club Website</h3>
+            <div class="tags">
+              <span class="tag">Web Design</span>
+              <span class="tag">UI/UX</span>
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">SquareSpace</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://datathroughdesign.com/2023" target="_blank" class="project-link">
+          <div class="project-card">
+            <img src="/img/cover-dnd.png?height=200&width=300" alt="datathroughdesign 2023" />
+            <div class="description">
+              During NYC Open Data Week's prestigious Data Through Design exhibition, our team at Blockparty was honored to be selected 
+              as one of ten exhibiting artist teams, showcasing innovative applications of open data for public good.
+              We created a compelling art installation that visually mapped housing inequality across New York City,
+              integrating data analytics results from our AI NLP platform. 
+            </div>
+            <h3>Design Through Design Exhibition at NYC Open Data Week 2023</h3>
+            <div class="tags">
+              <span class="tag">Data Visualization</span>
+              <span class="tag">Data Analysis</span>
+              <span class="tag">GIS</span>
+              <span class="tag">Art Installation</span>
+            </div>
+          </div>
         </a>
 
         <a href="Project-Design/BX_ArchPortfolio.pdf" target="_blank" class="project-link">
@@ -374,80 +488,18 @@
             <h3>Architectural Design 2015 - 2020</h3>
             <div class="tags">
               <span class="tag">Architectural Design</span>
-              <span class="tag">Generative Design</span>
-              <span class="tag">Urban Tech</span>
+              <span class="tag">Parametric Design</span>
+              <span class="tag">3D Modeling</span>
+              <span class="tag">Rendering</span>
+              <span class="tag">Adobe Suite</span>
             </div>
           </div>
         </a>
 
-        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project uses advanced techniques to handle image classification.
-              </div>
-              <h3>ML Project 1</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Neural Networks</span>
-                <span class="tag">Python</span>
-              </div>
-            </div>
-        </a>
-
       </div>
     </section>
     <br><br>
 
-    <!-- Research Section -->
-    <section id="research">
-      <h1>Research</h1>
-      <div class="project-grid">
-        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project uses advanced techniques to handle image classification.
-              </div>
-              <h3>ML Project 1</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Neural Networks</span>
-                <span class="tag">Python</span>
-              </div>
-            </div>
-        </a>
-        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project uses advanced techniques to handle image classification.
-              </div>
-              <h3>ML Project 1</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Neural Networks</span>
-                <span class="tag">Python</span>
-              </div>
-            </div>
-        </a>
-        <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-placeholder.jpg?height=200&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project uses advanced techniques to handle image classification.
-              </div>
-              <h3>ML Project 1</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Neural Networks</span>
-                <span class="tag">Python</span>
-              </div>
-            </div>
-        </a>
-      </div>
-    </section>
-    <br><br>
   </main>
 
   <script>
