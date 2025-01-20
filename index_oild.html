@@ -15,45 +15,35 @@
     body {
       font-family:  DM Sans, DM Sans;
       display: flex;
-      flex-direction: column;
-      color:#4A4238
+      flex-direction: row;
     }
-
     /* Navigation Styles */
     nav {
-      width: 100%;
-      height: auto;
-      background-color: #FDF8E2;
-      padding: 5em 3em;
-      position: static;  
-      top: 0;           
-      overflow-y: auto; 
-      order: 2;
+      width: 365px;
+      height: 100vh;
+      background-color: #f0f0f0;
+      padding: 80px 40px;
+      position: sticky;  /* Stays in view while scrolling */
+      top: 0;           /* Required for sticky positioning */
+      overflow-y: auto; /* In case content is taller than viewport */
     }
-
-    @media (min-width:1001px) {
-      body{
-            flex-direction: row;
-        }
+    @media (max-width: 1200px) {
       nav {
-        width: 25%;
-        height: 100vh;
-        position: sticky;
-        padding: 5em 3em 3em 3em;
+        width: 36%;
       }
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 400px) {
       nav {
-        width: 100%;
-        height: auto;
-        border-radius: 0;
-        padding: 5em 3em 3em 3em;
-        overflow: auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        padding: 10px;
+        overflow: hidden;
       }
 
       nav p, nav ul {
-        display: block;
+        display: none;
       }
     }
 
@@ -67,13 +57,13 @@
 
     nav ul li a {
       text-decoration: none;
-      color: #EB631B;
-      font-weight: 1000;
+      color: #333;
+      font-weight: 600;
       transition: color 0.3s;
     }
 
     nav ul li a:hover {
-      color: #090C9B;
+      color: #ff00c8;
     }
 
     /* Top nav container */
@@ -81,22 +71,21 @@
         position: fixed;
         top: 0;
         width: 100%;
-        height: 4em;
-        background-color: #EB631B;
+        height: 60px;
+        background-color: #fff;
         display: flex;
         align-items: center;
         justify-content: space-between; /* Space between logo and links */
-        padding: 0 3em;
+        padding: 0 40px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         z-index: 9999; /* Ensure it's on top of everything else */
-        order: 1; 
     }
     
     /* Logo styling */
     .nav-logo img {
-      margin-top: 8px;
-      height:1.3em; /* Adjust logo size */
+      margin-top: 16px;
+      height:30px; /* Adjust logo size */
       object-fit: contain;
     }
     
@@ -109,26 +98,26 @@
     /* Link buttons */
     .nav-links .btn {
         text-decoration: none;
-        padding: 4px 10px;
+        padding: 8px 15px;
         border-radius: 5px;
         font-weight: 600;
-        color: #EB631B;
-        background-color: #FDF8E2;
+        color: #333;
+        background-color: #f9f9f9;
         transition: all 0.3s ease;
     }
     
     .nav-links .btn:hover {
-        background-color: #EB631B;
-        color: #090C9B;
+        background-color: #ff00c8;
+        color: #fff;
+        border-color: #ff00c8;
     }  
   
     /* Push main content down if you don't want it hidden behind the top nav */
     /* Main Content Styles */
     main {
       flex: 1;
-      padding: 70px 50px 50px 50px;
+      padding: 80px 50px 50px 50px;
       margin-left: 0; /* No extra margin needed since nav is sticky */
-      order:3;
     }
 
     section {
@@ -136,7 +125,7 @@
     }
 
     h1 {
-      color: #4A4238;
+      color: #2c3e50;
       margin-bottom: 20px;
     }
 
@@ -147,15 +136,7 @@
       gap: 20px;
     }
 
-    @media (max-width: 1400px) {
-      /* For smaller screens, display a single column */
-      .project-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-    }
-
-    @media (max-width: 1000px) {
+    @media (max-width: 1200px) {
       /* For smaller screens, display a single column */
       .project-grid {
         grid-template-columns: 1fr;
@@ -215,6 +196,7 @@
       text-align: center;
     }
 
+    /* NEW TEST STYLE */
     /* Description styling (hidden by default) */
     .description {
         position: absolute;
@@ -224,10 +206,9 @@
         bottom: 0;
         width: 100%;
         height: 300px; /* Keeps the image height fixed */
-        background-color: rgba(74, 66, 56, 0.91); 
-        background-color: rgba(9, 12, 155, 0.85); 
-        color: #FDF8E2;
-        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.88); /* ~90% opacity black */
+        color: #fff;
+        padding: 10px;
         display: flex;   /* Use flexbox to center content */
         align-items: center;
         justify-content: center;
@@ -253,10 +234,10 @@
 
     .tag {
       background-color: #e0e0e0;
-      color: #4A4238;
+      color: #333;
       padding: 3px 8px;
       border-radius: 3px;
-      font-size: 0.75em;
+      font-size: 0.8em;
     }
   </style>
 </head>
@@ -284,7 +265,7 @@
     </ul>
     <br>
     <p>
-      Some of my other professional and research experiences includes renewable energy, environmental justice, and sustainable urban planning and architecture.  
+      Some of my other research experience includes renewable energy, environmental justice, and sustainable urban development.  
     </p>
     <br><br>
     <p>
@@ -297,8 +278,7 @@
   <div class="top-nav" id="topNav">
     <!-- Logo aligned to the left -->
     <div class="nav-logo">
-        <img src="/img/intro-id.gif" alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" /> 
-        <!-- https://willkessler.github.io/typed-text-gif-maker/ -->
+        <img src="/img/intro-id.gif" alt="becky xu is a researcher, data scientist, designer, and sustainability specialist" />
     </div>
 
     <!-- Links aligned to the right -->
