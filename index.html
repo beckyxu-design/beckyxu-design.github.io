@@ -96,25 +96,27 @@
     /* Logo styling */
     .nav-logo img {
       margin-top: 8px;
-      height:1.3em; /* Adjust logo size */
+      height:1.2em; /* Adjust logo size */
       object-fit: contain;
     }
     
     /* Links container (aligned to the right) */
     .nav-links {
+        margin-left: 10px;
         display: flex;
-        gap: 15px; /* Spacing buttons */
+        gap: 10px; /* Spacing buttons */
     }
     
     /* Link buttons */
     .nav-links .btn {
         text-decoration: none;
-        padding: 4px 10px;
+        padding: 4px 4px;
         border-radius: 5px;
         font-weight: 600;
         color: #EB631B;
         background-color: #FDF8E2;
         transition: all 0.3s ease;
+        font-size: 0.9em
     }
     
     .nav-links .btn:hover {
@@ -126,13 +128,13 @@
     /* Main Content Styles */
     main {
       flex: 1;
-      padding: 70px 50px 50px 50px;
+      padding: 5em 3em 3em 3em;
       margin-left: 0; /* No extra margin needed since nav is sticky */
       order:3;
     }
 
     section {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     h1 {
@@ -213,6 +215,7 @@
       margin: 0;
       background-color: #f9f9f9;
       text-align: center;
+      font-size: 1.2em;
     }
 
     /* Description styling (hidden by default) */
@@ -239,8 +242,8 @@
 
     /* Show description on hover */
     .project-card:hover .description {
-    display: flex;  
-    opacity: 1;
+      display: flex;  
+      opacity: 1;
     }
 
     /* Tag Styles */
