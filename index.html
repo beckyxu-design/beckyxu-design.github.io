@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfolio of Becky Xu</title>
@@ -13,17 +13,17 @@
     }
 
     body {
-      font-family:  DM Sans, DM Sans;
+      font-family: 'Inter', sans-serif;
       display: flex;
       flex-direction: column;
-      color:#4A4238
+      color:#383838
     }
 
     /* Navigation Styles */
     nav {
       width: 100%;
       height: auto;
-      background-color: #FDF8E2;
+      background-color: #D1E0D1;
       padding: 5em 3em;
       position: static;  
       top: 0;           
@@ -36,7 +36,7 @@
             flex-direction: row;
         }
       nav {
-        width: 25%;
+        width: 20%;
         height: 100vh;
         position: sticky;
         padding: 5em 3em 3em 3em;
@@ -67,7 +67,7 @@
 
     nav ul li a {
       text-decoration: none;
-      color: #EB631B;
+      color: #525266;
       font-weight: 1000;
       transition: color 0.3s;
     }
@@ -82,7 +82,8 @@
         top: 0;
         width: 100%;
         height: 4em;
-        background-color: #EB631B;
+        background-color: #525266;
+        background-color: #4d5c60; 
         display: flex;
         align-items: center;
         justify-content: space-between; /* Space between logo and links */
@@ -113,14 +114,14 @@
         padding: 4px 4px;
         border-radius: 5px;
         font-weight: 600;
-        color: #EB631B;
-        background-color: #FDF8E2;
+        color: #525266;
+        background-color: #D1E0D1;
         transition: all 0.3s ease;
         font-size: 0.9em
     }
     
     .nav-links .btn:hover {
-        background-color: #EB631B;
+        background-color: #525266;
         color: #090C9B;
     }  
   
@@ -172,7 +173,7 @@
     }
 
     .project-card {
-      border: 1px solid #ddd;
+      border: 1px solid  #eef4ce;
       border-radius: 5px;
       overflow: hidden;
       transition: transform 0.3s, box-shadow 0.3s;
@@ -228,8 +229,8 @@
         width: 100%;
         height: 300px; /* Keeps the image height fixed */
         background-color: rgba(74, 66, 56, 0.91); 
-        background-color: rgba(9, 12, 155, 0.85); 
-        color: #FDF8E2;
+        background-color: #eef4ce; 
+        color: #383838;
         padding: 15px;
         display: flex;   /* Use flexbox to center content */
         align-items: center;
@@ -269,13 +270,10 @@
   <!-- Side Navigation Bar -->
   <nav>
     <p>
-        Hello 👋
         <br><br>
-        I'm Becky Xu, a Master of City Planning student at MIT.
+        I'm Becky Xu, a recent graduate from MIT and currently working as a Consultant at World Bank
         <br><br>
-        I have been proudly developing climate and sustainability research and products with my skillsets in AI/ML, data science, and design. 
-        <br>
-        One of current projects includes scope 3 emission data analysis, data visualization, and stakeholder engagement strategies with MIT Office of Sustainability, contributing to the MIT net-zero emission goal.
+        My interests lay in the intersection of AI/ML, data science, and product for climate & sustainability. 
         <br><br>
         Explore collections of my past completed projects here:
     </p>
@@ -287,7 +285,7 @@
     </ul>
     <br>
     <p>
-      Some of my other professional and research experiences includes renewable energy, environmental justice, and sustainable urban planning and architecture.  
+      Some of my other experiences includes renewable energy, environmental justice, and sustainable urban planning and architecture.  
     </p>
     <br><br>
     <p>
@@ -300,7 +298,10 @@
   <div class="top-nav" id="topNav">
     <!-- Logo aligned to the left -->
     <div class="nav-logo">
-        <img src="/img/intro-id.gif" alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" /> 
+        <!-- <img src="/img/intro-id.gif" alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" />  -->
+        <br>
+        <h1>Hello! 你好!</h1>
+        <alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" /> 
         <!-- https://willkessler.github.io/typed-text-gif-maker/ -->
     </div>
 
@@ -308,7 +309,7 @@
     <div class="nav-links">
         <!-- <a href="#aboutme" class="btn">About Me</a> -->
         <!-- <a href="/about.html" class="btn">About Me</a> -->
-        <a href="mailto:zx96@mit.edu" class="btn">Email</a>
+        <a href="mailto:zx96@alum.mit.edu" class="btn">Email</a>
         <a href="https://linkedin.com/in/zqxu" target="_blank" class="btn">LinkedIn</a>
     </div>
   </div>
