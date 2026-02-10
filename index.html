@@ -1,550 +1,1000 @@
 <!DOCTYPE html>
 <html lang="en">
-<head @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');>
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfolio of Becky Xu</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <meta name="description" content="Portfolio of Becky Xu featuring AI/ML, research, and design projects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <style>
-    /* Base Styles */
-    * {
+    :root {
+      --bg: #f7f6f1;
+      --text: #111111;
+      --line: #c6c6c6;
+      --line-strong: #8e8e8e;
+      --muted: #4a4a4a;
+      --r: #008471; 
+      --g: #6698cc;
+      --b: #e36888; 
+    }
+
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      border-radius: 0 !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.15em;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -10rem;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      padding: 0.6rem 0.9rem;
+      z-index: 200;
+    }
+
+    .skip-link:focus-visible {
+      top: 1rem;
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-bar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
       display: flex;
-      flex-direction: column;
-      color:#383838
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
-    /* Navigation Styles */
-    nav {
-      width: 100%;
-      height: auto;
-      background-color: #D1E0D1;
-      padding: 5em 3em;
-      position: static;  
-      top: 0;           
-      overflow-y: auto; 
-      order: 2;
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
-    @media (min-width:1001px) {
-      body{
-            flex-direction: row;
-        }
-      nav {
-        width: 20%;
-        height: 100vh;
-        position: sticky;
-        padding: 5em 3em 3em 3em;
-      }
+    .top-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
-    @media (max-width: 1000px) {
-      nav {
-        width: 100%;
-        height: auto;
-        border-radius: 0;
-        padding: 5em 3em 3em 3em;
-        overflow: auto;
-      }
-
-      nav p, nav ul {
-        display: block;
-      }
-    }
-
-    nav ul {
-      list-style-type: none;
-    }
-
-    nav ul li {
-      margin-bottom: 15px;
-    }
-
-    nav ul li a {
+    .top-links a {
+      padding: 0.15rem 0.2rem;
+      border-bottom: 1px solid transparent;
       text-decoration: none;
-      color: #525266;
-      font-weight: 1000;
-      transition: color 0.3s;
     }
 
-    nav ul li a:hover {
-      color: #090C9B;
+    .top-links a:hover,
+    .top-links a:focus-visible {
+      border-bottom-color: var(--text);
+      outline: none;
     }
 
-    /* Top nav container */
-    .top-nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 4em;
-        background-color: #525266;
-        background-color: #4d5c60; 
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Space between logo and links */
-        padding: 0 3em;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        z-index: 9999; /* Ensure it's on top of everything else */
-        order: 1; 
+    .copy-notice {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
     }
-    
-    /* Logo styling */
-    .nav-logo img {
-      margin-top: 8px;
-      height:1.2em; /* Adjust logo size */
-      object-fit: contain;
-    }
-    
-    /* Links container (aligned to the right) */
-    .nav-links {
-        margin-left: 10px;
-        display: flex;
-        gap: 10px; /* Spacing buttons */
-    }
-    
-    /* Link buttons */
-    .nav-links .btn {
-        text-decoration: none;
-        padding: 4px 4px;
-        border-radius: 5px;
-        font-weight: 600;
-        color: #525266;
-        background-color: #D1E0D1;
-        transition: all 0.3s ease;
-        font-size: 0.9em
-    }
-    
-    .nav-links .btn:hover {
-        background-color: #525266;
-        color: #090C9B;
-    }  
-  
-    /* Push main content down if you don't want it hidden behind the top nav */
-    /* Main Content Styles */
+
     main {
-      flex: 1;
-      padding: 5em 3em 3em 3em;
-      margin-left: 0; /* No extra margin needed since nav is sticky */
-      order:3;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem;
     }
 
-    section {
-      margin-bottom: 20px;
+    .intro {
+      display: grid;
+      gap: 1rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.25rem;
     }
 
-    h1 {
-      color: #4A4238;
-      margin-bottom: 20px;
+    .intro h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4.4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
     }
 
-    /* Project Grid Styles */
+    .intro p {
+      margin: 0;
+      max-width: 72ch;
+    }
+
+    .direction {
+      display: grid;
+      gap: 0.6rem;
+      font-size: 0.94rem;
+    }
+
+    .direction-label {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .direction-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .keyword {
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.45rem;
+      font-size: 0.83rem;
+    }
+
+    .inspiration-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .controls {
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+
+    .control-group {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .control-label {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      padding: 0.45rem 0.7rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .filter-btn[data-accent="r"][aria-pressed="true"],
+    .filter-btn[data-accent="r"]:focus-visible,
+    .filter-btn[data-accent="r"]:active {
+      background: var(--r);
+      border-color: var(--r);
+      color: #ffffff;
+      outline: none;
+    }
+
+    .filter-btn[data-accent="g"][aria-pressed="true"],
+    .filter-btn[data-accent="g"]:focus-visible,
+    .filter-btn[data-accent="g"]:active {
+      background: var(--g);
+      border-color: var(--g);
+      color: #ffffff;
+      outline: none;
+    }
+
+    .filter-btn[data-accent="b"][aria-pressed="true"],
+    .filter-btn[data-accent="b"]:focus-visible,
+    .filter-btn[data-accent="b"]:active {
+      background: var(--b);
+      border-color: var(--b);
+      color: #ffffff;
+      outline: none;
+    }
+
+    .sort-wrap {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .sort-wrap label {
+      font-size: 0.92rem;
+    }
+
+    .sort-wrap select {
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--text);
+      padding: 0.45rem 0.7rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      appearance: none;
+    }
+
+    .sort-wrap select:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+
+    .work-count {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      font-size: 0.87rem;
+      color: var(--muted);
+      min-height: 1.2rem;
+    }
+
+    .work-section {
+      margin-bottom: 1.5rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .work-section[hidden] {
+      display: none;
+    }
+
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.95rem;
     }
 
-    @media (max-width: 1400px) {
-      /* For smaller screens, display a single column */
-      .project-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-    }
-
-    @media (max-width: 1000px) {
-      /* For smaller screens, display a single column */
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Make the entire project card clickable */
-    .project-link {
-        text-decoration: none; /* Remove underline */
-        color: inherit;        /* Keep text colors unchanged */
-        display: block;        /* Ensure the link wraps the entire card */
+    .project-card-wrap {
+      list-style: none;
     }
 
     .project-card {
-      border: 1px solid  #eef4ce;
-      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid var(--line);
+      background: transparent;
       overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
     }
 
     .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-color: var(--line-strong);
     }
 
-    .project-card img {
+    .project-image {
       width: 100%;
-      height: 300px;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      display: block;
+      border-bottom: 1px solid var(--line);
     }
 
-    .project-card h3 {
-      padding: 10px;
+    .project-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: 0.75rem;
+      flex: 1 1 auto;
+      min-height: 0;
+    }
+
+    .project-year {
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .project-card-wrap h3 {
       margin: 0;
-      background-color: #f9f9f9;
-      text-align: center;
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
     }
 
-    .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .project-card img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .project-card h3 {
-      padding: 10px;
-      margin: 0;
-      background-color: #f9f9f9;
-      text-align: center;
-      font-size: 1.2em;
-    }
-
-    /* Description styling (hidden by default) */
     .description {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 300px; /* Keeps the image height fixed */
-        background-color: rgba(74, 66, 56, 0.91); 
-        background-color: #eef4ce; 
-        color: #383838;
-        padding: 15px;
-        display: flex;   /* Use flexbox to center content */
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 0.9em;
-        opacity: 0;     /* hidden by default */
-        transition: opacity 0.3s;
+      margin: 0;
+      font-size: 0.9rem;
+      color: #1c1c1c;
     }
 
-    /* Show description on hover */
-    .project-card:hover .description {
-      display: flex;  
-      opacity: 1;
-    }
-
-    /* Tag Styles */
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      padding: 10px;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .tag {
-      background-color: #e0e0e0;
-      color: #4A4238;
-      padding: 3px 8px;
-      border-radius: 3px;
-      font-size: 0.75em;
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.35rem;
+      font-size: 0.72rem;
+      line-height: 1.2;
+    }
+
+    .project-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card-category {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-width: calc(100% - 2.5rem);
+    }
+
+    .category-chip {
+      display: inline-block;
+      border: 1px solid transparent;
+      color: #ffffff;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.78rem;
+      font-family: "IBM Plex Mono", "Courier New", monospace;
+      line-height: 1;
+    }
+
+    .category-chip.machine-learning {
+      background: var(--r);
+      border-color: var(--r);
+    }
+
+    .category-chip.research {
+      background: var(--g);
+      border-color: var(--g);
+    }
+
+    .category-chip.design {
+      background: var(--b);
+      border-color: var(--b);
+    }
+
+    .card-expand {
+      border: 1px solid var(--line-strong);
+      color: var(--text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-expand:hover {
+      border-color: var(--text);
+    }
+
+    .card-expand:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 2px;
+    }
+
+    .empty-state {
+      border: 1px solid var(--line);
+      padding: 1rem;
+      margin-top: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .empty-state[hidden] {
+      display: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      margin-top: 1.25rem;
+      padding-top: 0.85rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 1050px) {
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .top-bar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .control-row {
+        align-items: stretch;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-body {
+        padding: 0.68rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- add a nav bar on the top of the screen that collapse up as user scroll down -->
-   
-  <!-- Side Navigation Bar -->
-  <nav>
-    <p>
-        <br><br>
-        I'm Becky Xu, a recent graduate from MIT and currently working as a Consultant at World Bank
-        <br><br>
-        My interests lay in the intersection of AI/ML, data science, and product for climate & sustainability. 
-        <br><br>
-        Explore collections of my past completed projects here:
-    </p>
-    <br><br>
-    <ul>
-      <li><a href="#machine-learning">AI/ML</a></li>
-      <li><a href="#research">Research & Analysis</a></li>
-      <li><a href="#design">Design & Product</a></li>
-    </ul>
-    <br>
-    <p>
-      Some of my other experiences includes renewable energy, environmental justice, and sustainable urban planning and architecture.  
-    </p>
-    <br><br>
-    <p>
-        If you'd like to chat, feel free to reach out to me through email or LinkedIn!
-    </p>
+  <a href="#content" class="skip-link">Skip to content</a>
 
-  </nav>
-
-  <!-- Top Navigation Bar -->
-  <div class="top-nav" id="topNav">
-    <!-- Logo aligned to the left -->
-    <div class="nav-logo">
-        <!-- <img src="/img/intro-id.gif" alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" />  -->
-        <br>
-        <h1>Hello! 你好!</h1>
-        <alt="becky xu is a researcher, data scientist, designer, sustainability specialist, and creative" /> 
-        <!-- https://willkessler.github.io/typed-text-gif-maker/ -->
+  <header class="top-bar" role="banner">
+    <div class="top-bar-inner">
+      <div class="brand">Becky Xu's Portfolio</div>
+      <nav class="top-links" aria-label="Primary">
+        <!-- <a href="#machine-learning">AI/ML</a>
+        <a href="#research">Data &amp; Research</a>
+        <a href="#design">Design &amp; Product</a> -->
+        <a href="mailto:zx96@alum.mit.edu" id="emailLink">Email</a>
+        <span id="copyNotice" class="copy-notice" role="status" aria-live="polite" aria-atomic="true" hidden></span>
+        <a href="https://linkedin.com/in/zqxu" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
     </div>
+  </header>
 
-    <!-- Links aligned to the right -->
-    <div class="nav-links">
-        <!-- <a href="#aboutme" class="btn">About Me</a> -->
-        <!-- <a href="/about.html" class="btn">About Me</a> -->
-        <a href="mailto:zx96@alum.mit.edu" class="btn">Email</a>
-        <a href="https://linkedin.com/in/zqxu" target="_blank" class="btn">LinkedIn</a>
-    </div>
-  </div>
+  <main id="content">
+    <section class="intro" aria-labelledby="intro-title">
+      <h3 id="intro-title">Hello!</h3>
+      <p>
+        Welcome to my portfolio website showcasing selected projects in AI/ML, research, and design.
+      </p>
+      <p>
+        I'm Becky Xu, a recent graduate from MIT and currently working as a GIS Consultant at World Bank building ZeroHungerAI.
+        I've been working at the intersection of AI/ML and product for climate &amp; sustainability since 2022.
+        My other experiences include sustainable urban planning, renewable energy development, decarbonization strategies, and net-zero architectural design.
+      </p>
+      <p>
+        Happy to chat if you'd like to connect!
+      </p>
 
-  <!-- Main Content -->
-  <main>
-    <!-- AI/ML Section -->
-    <section id="machine-learning">
-      <h1>AI/ML</h1>
-      <div class="project-grid">
-        <a href="Project-ML/Project-ML-6.7960/index.html" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-satml.png?height=300&width=300" alt="Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact" />
-              <div class="description">
-                This project explores how strategic masking—simulating cloud covers and other occlusions—can enhance 
+      <!-- <div class="direction" aria-label="Design direction summary">
+        <div>
+          <div class="direction-label">Visual Keywords</div>
+          <div class="direction-row">
+            <span class="keyword">Monochrome Grid</span>
+            <span class="keyword">Sharp Dividers</span>
+            <span class="keyword">Editorial Rhythm</span>
+            <span class="keyword">Quiet Utility</span>
+          </div>
+        </div>
+        <div>
+          <div class="direction-label">Tone + Typography</div>
+          <p>
+            Tone: precise, calm, and technical. Typography: Space Grotesk for content hierarchy and IBM Plex Mono for controls/metadata.
+          </p>
+        </div>
+      </div> -->
+    </section>
+
+    <section class="controls" aria-label="Project controls">
+      <div class="control-row">
+        <div class="control-group">
+          <div class="control-label">Filter Categories</div>
+          <div class="filter-buttons" role="group" aria-label="Filter projects by category">
+            <button type="button" class="filter-btn" data-category="machine-learning" data-accent="r" aria-pressed="true">AI/ML</button>
+            <button type="button" class="filter-btn" data-category="research" data-accent="g" aria-pressed="true">Data &amp; Research</button>
+            <button type="button" class="filter-btn" data-category="design" data-accent="b" aria-pressed="true">Design &amp; Product</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">Sort</div>
+          <div class="sort-wrap">
+            <label for="sortOrder">Sort by year</label>
+            <select id="sortOrder" name="sortOrder">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <output id="workCount" class="work-count" aria-live="polite">0 works shown</output>
+    </section>
+
+    <section id="projects" class="work-section" aria-label="All projects">
+      <div class="project-grid" id="projectGrid">
+        <article class="project-card-wrap" data-year="2024" data-category="machine-learning">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-satml.png?height=300&amp;width=300" alt="Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact" />
+            <div class="project-body">
+              <div class="project-year">Year: 2024</div>
+              <h3>Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact</h3>
+              <p class="description">
+                This project explores how strategic masking—simulating cloud covers and other occlusions—can enhance
                 the robustness of a pretrained Satellite Machine Learning (SatML) model for land cover classification tasks through fine-tuning.
-              </div>
-              <h3> Seeing Through Clouds: Improving Robustness of SatML For Land Use Monitoring - AI for Climate Impact</h3>
-              <div class="tags">
-                <span class="tag">Deep Learning</span>
-                <span class="tag">Remote Sensing</span>
-                <span class="tag">Python</span>
-                <span class="tag">Pytorch</span>
-                <span class="tag">#Landuse Classification</span>
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Deep Learning</li>
+                <li class="tag">Remote Sensing</li>
+                <li class="tag">Python</li>
+                <li class="tag">Pytorch</li>
+                <li class="tag">#Landuse Classification</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip machine-learning">AI/ML</span>
+                </div>
+                <a href="Project-ML/Project-ML-6.7960/index.html" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Seeing Through Clouds">↗</a>
               </div>
             </div>
-        </a>
-        <a href="https://rpubs.com/beckyxu_code/predict_housing_values_ml" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-re.png?height=300&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project predicts Boston housing values using machine learning. 
-                I explored the impact of physical and environmental factors by engineering features from the Boston Housing dataset and comparing the performance (RMSE) of LASSO Regression, Random Forest, and Ensemble models.
-              </div>
+          </div>
+        </article>
+
+        <article class="project-card-wrap" data-year="2024" data-category="machine-learning">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-re.png?height=300&amp;width=300" alt="Machine Learning Project 1" />
+            <div class="project-body">
+              <div class="project-year">Year: 2023</div>
               <h3>Predicting Housing Values with Environmental Factors: A Machine Learning Approach</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Regression</span>
-                <span class="tag">Random Forest</span>
-                <span class="tag">R</span>
-                <span class="tag">#PricePrediction</span>
+              <p class="description">
+                I explored the impact of physical and environmental factors by engineering features from the Boston Housing dataset and comparing the performance (RMSE) of LASSO Regression, Random Forest, and Ensemble models.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Machine Learning</li>
+                <li class="tag">Regression</li>
+                <li class="tag">Random Forest</li>
+                <li class="tag">R</li>
+                <li class="tag">#PricePrediction</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip machine-learning">AI/ML</span>
+                </div>
+                <a href="https://rpubs.com/beckyxu_code/predict_housing_values_ml" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Predicting Housing Values">↗</a>
               </div>
-            </div>
-        </a>
-        <!-- <a href="https://github.com/beckyxu-design" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-placeholder.jpg?height=300&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project uses advanced techniques to handle image classification.
-              </div>
-              <h3>ML Project 1</h3>
-              <div class="tags">
-                <span class="tag">Machine Learning</span>
-                <span class="tag">Neural Networks</span>
-                <span class="tag">Python</span>
-              </div>
-            </div>
-        </a> -->
-      </div>
-    </section>
-    <br><br>
-
-    <!-- Research & Analysis Section -->
-    <section id="research">
-      <h1>Research & Analysis</h1>
-      <div class="project-grid">
-        <a href="Project-Research/research-ag.pdf" target="_blank" class="project-link">
-          <div class="project-card">
-            <img src="/img/cover-ag2.png?height=300&width=300" alt="professional work from alpha geo" />
-            
-            <div class="description">
-              I Developed over a dozen global datasets on climate risks and socio-economic conditions during my work at a climate-tech startup, AlphaGeo.
-              <br>
-              I conducted research, data sourcing, and processing to create 1km resolution datasets and automated pipelines. In addition, I developed the "resilience-adjusted risk score" methodology with the CTO to evaluate risks under climate change scenarios.
-            </div>
-
-            <h3>Global Climate & Social Economic Resilience Adjusted Risk<br><br> </h3>
-            
-            <div class="tags">
-              <span class="tag">Data Engineering</span>
-              <span class="tag">Data Science</span>
-              <span class="tag">Back-End Dev</span>
-              <span class="tag">Product Dev\</span>
-              <span class="tag">Python</span>
-              <span class="tag">SQL</span>
-              <span class="tag">#Climate Risks</span>
             </div>
           </div>
-        </a>
+        </article>
 
-        <a href="Project-Research/research-cddl.pdf" target="_blank" class="project-link">
+        <article class="project-card-wrap" data-year="2025" data-category="machine-learning">
           <div class="project-card">
-            <img src="/img/cover-cddl.png?height=300&width=300" alt="research at mit civic data & designlab" />
-            
-            <div class="description">        
-              This project, developed for the MIT Civic Data & Design Lab (CDDL) in spring 2023, 
-              investigates the transformation of Beirut's urban form and its impact on small businesses and street commerce.
-              <br>
-              I conducted spatial and data analysis, data visualization, and GIS mapping to analyze the spatial distribution of small businesses and street commerce in Beirut.
-            </div>
-
-            <h3>Beirut Urban Analysis: Small Businesses, Street Commerce & City Form Transformation</h3>
-            <div class="tags">
-              <span class="tag">Research</span>
-              <span class="tag">Data Analysis</span>
-              <span class="tag">Data Visualization</span>
-              <span class="tag">GIS</span>
-              <span class="tag">R</span>
-              <span class="tag">#UrbanAnalysis</span>
+            <img class="project-image" src="/img/cover-carbon.png?height=300&amp;width=300" alt="Carbon Offset Validator interface preview" />
+            <div class="project-body">
+              <div class="project-year">Year: 2025</div>
+              <h3>Carbon Offset Validator</h3>
+              <p class="description">
+                Carbon Offset Validator is a full-stack tool for analyzing forestry carbon projects by project code.
+                This platform visualizes risk metrics, land-use and deforestation trends, geospatial boundaries, and AI-generated insights.
+                <br />
+                <a href="https://carbon-offset-validation-xmp6.onrender.com/" target="_blank" rel="noopener noreferrer">View the site here!</a>
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">React</li>
+                <li class="tag">Vite</li>
+                <li class="tag">Node.js</li>
+                <li class="tag">FastAPI</li>
+                <li class="tag">Supabase</li>
+                <li class="tag">Geospatial Analytics</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip machine-learning">AI/ML</span>
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <!-- <a href="Project-ML/Project-ML-6.7960/index.html" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Seeing Through Clouds">↗</a> -->
+                <a href="https://analyzing-risks-in-volun-7sbc3ji.gamma.site/analyzing-risks-in-voluntary-forest-carbon-offsets-using-open-data"  target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Carbon Offset Validator">↗</a>
+              </div>
             </div>
           </div>
-        </a>
+        </article>
 
-        <a href="https://github.com/beckyxu-design/MIT_Projects_Public/blob/main/Quantitative_Reasoning/Final%20Presentation/11.220_Health_Insurance_Inequality_NYC_BeckyXu.pdf" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="/img/cover-qr22.png?height=300&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                This project is developed for 11.220 Quantitative Reasoning class at MIT in fall 2022. 
+        <article class="project-card-wrap" data-year="2025" data-category="machine-learning">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-nda.png?height=300&amp;width=300" alt="UNOPS remote-sensing insight dashboard preview unavailable under NDA" />
+            <div class="project-body">
+              <div class="project-year">Year: 2025</div>
+              <h3>UNOPS Remote-Sensing Insight Dashboard</h3>
+              <p class="description">
+                Built for client UNOPS, this web tool powers project insight dashboard, covering ~9000 projects.
+                A Next.js frontend visualizes project portfolios overview, SDG alignment, funding, regions, and tool usage, while a FastAPI/Python backend pulls and transforms BigQuery data.
+                Used LLM with few-shot prompting for document-analysis and keyword extraction. 
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">GCP</li>
+                <li class="tag">GenAI</li>
+                <li class="tag">Document Extraction</li>
+                <li class="tag">Document to SQL</li>
+                <li class="tag">Full Stack</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip machine-learning">AI/ML</span>
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="mailto:zx96@alum.mit.edu?subject=UNOPS%20Dashboard%20Preview%20Request" class="card-expand" aria-label="Open project: UNOPS Remote-Sensing Insight Dashboard">↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+ 
+        <article class="project-card-wrap" data-year="2024" data-category="research">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-ag2.png?height=300&amp;width=300" alt="professional work from alpha geo" />
+            <div class="project-body">
+              <div class="project-year">Year: 2024</div>
+              <h3>Global Climate &amp; Social Economic Resilience Adjusted Risk</h3>
+              <p class="description">
+                Curated over a dozen global datasets on climate risks and socio-economic conditions during my work at a climate-tech startup, AlphaGeo.
+                I conducted research, data sourcing, and ETL to create 1km resolution datasets and automated pipelines. In addition, I developed the "resilience-adjusted risk score" methodology with the CTO to evaluate risks under climate change scenarios.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Data Engineering</li>
+                <li class="tag">Data Science</li>
+                <li class="tag">Back-End Dev</li>
+                <li class="tag">Product Dev\</li>
+                <li class="tag">Python</li>
+                <li class="tag">SQL</li>
+                <li class="tag">#Climate Risks</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip research">Data &amp; Research</span>
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="Project-Research/research-ag.pdf" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Global Climate and Social Economic Resilience Adjusted Risk">↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card-wrap" data-year="2023" data-category="research">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-cddl.png?height=300&amp;width=300" alt="research at mit civic data &amp; designlab" />
+            <div class="project-body">
+              <div class="project-year">Year: 2023</div>
+              <h3>Beirut Urban Analysis: Small Businesses, Street Commerce &amp; City Form Transformation</h3>
+              <p class="description">
+                This project, developed for the MIT Civic Data &amp; Design Lab (CDDL) in spring 2023,
+                investigates the transformation of Beirut's urban form and its impact on small businesses and street commerce.
+                I conducted spatial and data analysis, data visualization, and GIS mapping to analyze the spatial distribution of small businesses and street commerce in Beirut.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Research</li>
+                <li class="tag">Data Analysis</li>
+                <li class="tag">Data Visualization</li>
+                <li class="tag">GIS</li>
+                <li class="tag">R</li>
+                <li class="tag">#UrbanAnalysis</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip research">Data &amp; Research</span>
+                </div>
+                <a href="Project-Research/research-cddl.pdf" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Beirut Urban Analysis">↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card-wrap" data-year="2022" data-category="research">
+          <div class="project-card">
+            <img class="project-image" src="/img/cover-qr22.png?height=300&amp;width=300" alt="Machine Learning Project 1" />
+            <div class="project-body">
+              <div class="project-year">Year: 2022</div>
+              <h3>1 Million Gap: Health Insurance Inequality in NYC</h3>
+              <p class="description">
+                This project is developed for 11.220 Quantitative Reasoning class at MIT in fall 2022.
                 I investigated the health insurance inequality in NYC using data from the American Community Survey (ACS) 2015 - 2019.
-              </div>
-              <h3>1 Million Gap: Health Insurance Inequality in NYC <br><br></h3>
-              <div class="tags">
-                <span class="tag">Data Analysis</span>
-                <span class="tag">Linear Regression</span>
-                <span class="tag">GIS</span>
-                <span class="tag">R</span>
-                <span class="tag">#Public Health</span>
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Data Analysis</li>
+                <li class="tag">Linear Regression</li>
+                <li class="tag">GIS</li>
+                <li class="tag">R</li>
+                <li class="tag">#Public Health</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip research">Data &amp; Research</span>
+                </div>
+                <a href="https://github.com/beckyxu-design/MIT_Projects_Public/blob/main/Quantitative_Reasoning/Final%20Presentation/11.220_Health_Insurance_Inequality_NYC_BeckyXu.pdf" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: 1 Million Gap">↗</a>
               </div>
             </div>
-        </a>
-      </div>
-    </section>
-    <br><br>
-
-    <!-- Design & Dev Section -->
-    <section id="design">
-      <h1>Design & Product</h1>
-      <div class="project-grid">
-        <a href="https://beckyxu-design.github.io/AffordableEnergy_Philly_WebPrototype/" target="_blank" class="project-link">
-            <div class="project-card">
-              <img src="img/cover-phillyrh.png?height=300&width=300" alt="Machine Learning Project 1" />
-              <div class="description">
-                Developed this project website for MIT's 11.138 Crowd Sourced City class, taught by Professor Sarah Williams in Fall 2022. 
-                I collaborated with three other students, taking charge of front-end development, web design, and project management.
-                The Philly Energy Relief Hub aims to be a one-stop shop for low income households to discover 
-                public benefit programs in Philadelphia to reduce the share of their income spent on energy, 
-                both in the short-term and long-run, and ease the process of determining eligibility 
-                and applying for programs that meet their needs.
-              </div>
+          </div>
+        </article>
+ 
+        <article class="project-card-wrap" data-year="2022" data-category="design">
+          <div class="project-card">
+            <img class="project-image" src="img/cover-phillyrh.png?height=300&amp;width=300" alt="Machine Learning Project 1" />
+            <div class="project-body">
+              <div class="project-year">Year: 2022</div>
               <h3>Philly Energy Relief Hub</h3>
-              <div class="tags">
-                <span class="tag">Web Dev</span>
-                <span class="tag">Web Design</span>
-                <span class="tag">UI/UX</span>
-                <span class="tag">HTML/CSS</span>
-                <span class="tag">Javascript</span>
+              <p class="description">
+                The Philly Energy Relief Hub is a one-stop shop for low income households to discover
+                public benefit programs in Philadelphia to reduce the share of their income spent on energy,
+                both in the short-term and long-run, and ease the process of determining eligibility
+                and applying for programs that meet their needs.
+                Developed this for MIT 11.138. I collaborated with three other students, took charge of front-end development, web design, and project management.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Web Dev</li>
+                <li class="tag">Web Design</li>
+                <li class="tag">UI/UX</li>
+                <li class="tag">HTML/CSS</li>
+                <li class="tag">Javascript</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="https://beckyxu-design.github.io/AffordableEnergy_Philly_WebPrototype/" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Philly Energy Relief Hub">↗</a>
               </div>
             </div>
-        </a>
+          </div>
+        </article>
 
-        <a href="https://mitec-club.org/" target="_blank" class="project-link">
+        <article class="project-card-wrap" data-year="2023" data-category="design">
           <div class="project-card">
-            <img src="/img/cover-mitec.png?height=300&width=300" alt="mitec website" />
-            <div class="description">
-              Redesigned the MIT Energy & Climate Club website to improve user experience and visual design.
-            </div>
-            <h3>MIT Energy & Climate Club Website</h3>
-            <div class="tags">
-              <span class="tag">Web Design</span>
-              <span class="tag">UI/UX</span>
-              <span class="tag">HTML/CSS</span>
-              <span class="tag">SquareSpace</span>
+            <img class="project-image" src="/img/cover-mitec.png?height=300&amp;width=300" alt="mitec website" />
+            <div class="project-body">
+              <div class="project-year">Year: 2023</div>
+              <h3>MIT Energy &amp; Climate Club Website</h3>
+              <p class="description">
+                Redesigned the MIT Energy &amp; Climate Club website to improve user experience and visual design.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Web Design</li>
+                <li class="tag">UI/UX</li>
+                <li class="tag">HTML/CSS</li>
+                <li class="tag">SquareSpace</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="https://mitec-club.org/" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: MIT Energy and Climate Club Website">↗</a>
+              </div>
             </div>
           </div>
-        </a>
+        </article>
 
-        <a href="https://datathroughdesign.com/2023" target="_blank" class="project-link">
+        <article class="project-card-wrap" data-year="2023" data-category="design">
           <div class="project-card">
-            <img src="/img/cover-dnd.png?height=300&width=300" alt="datathroughdesign 2023" />
-            <div class="description">
-              During NYC Open Data Week's prestigious Data Through Design exhibition, our team at Blockparty was honored to be selected 
-              as one of ten exhibiting artist teams, showcasing innovative applications of open data for public good.
-              We created a compelling art installation that visually mapped housing inequality across New York City,
-              integrating data analytics results from our AI NLP platform. 
-            </div>
-            <h3>Design Through Design Exhibition at NYC Open Data Week 2023</h3>
-            <div class="tags">
-              <span class="tag">Data Visualization</span>
-              <span class="tag">Data Analysis</span>
-              <span class="tag">GIS</span>
-              <span class="tag">Art Installation</span>
+            <img class="project-image" src="/img/cover-dnd.png?height=300&amp;width=300" alt="datathroughdesign 2023" />
+            <div class="project-body">
+              <div class="project-year">Year: 2023</div>
+              <h3>Design Through Design Exhibition at NYC Open Data Week 2023</h3>
+              <p class="description">
+                During NYC Open Data Week's prestigious Data Through Design exhibition, our team at Blockparty was honored to be selected
+                as one of ten exhibiting artist teams, showcasing innovative applications of open data for public good.
+                We created a compelling art installation that visually mapped housing inequality across New York City,
+                integrating data analytics results from our AI NLP platform.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Data Visualization</li>
+                <li class="tag">Data Analysis</li>
+                <li class="tag">GIS</li>
+                <li class="tag">Art Installation</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="https://datathroughdesign.com/2023" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Design Through Design Exhibition">↗</a>
+              </div>
             </div>
           </div>
-        </a>
+        </article>
 
-        <a href="Project-Design/BX_ArchPortfolio.pdf" target="_blank" class="project-link">
+        <article class="project-card-wrap" data-year="2020" data-category="design">
           <div class="project-card">
-            <img src="/img/cover-arch.png?height=300&width=300" alt="Architectural Design 2015 - 2020" />
-            <div class="description">
-              Architectural design projects from 2015 to 2020, from generative design, community engagement, to urban tech.
-            </div>
-            <h3>Architectural Design 2015 - 2020</h3>
-            <div class="tags">
-              <span class="tag">Architectural Design</span>
-              <span class="tag">Parametric Design</span>
-              <span class="tag">3D Modeling</span>
-              <span class="tag">Rendering</span>
-              <span class="tag">Adobe Suite</span>
+            <img class="project-image" src="/img/cover-arch.png?height=300&amp;width=300" alt="Architectural Design 2015 - 2020" />
+            <div class="project-body">
+              <div class="project-year">Year: 2020</div>
+              <h3>Architectural Design 2015 - 2020</h3>
+              <p class="description">
+                Architectural design projects from 2015 to 2020, from generative design, community engagement, to urban tech.
+              </p>
+              <ul class="tags" aria-label="Project tags">
+                <li class="tag">Architectural Design</li>
+                <li class="tag">Parametric Design</li>
+                <li class="tag">3D Modeling</li>
+                <li class="tag">Rendering</li>
+                <li class="tag">Adobe Suite</li>
+              </ul>
+              <div class="project-footer">
+                <div class="card-category">
+                  <span class="category-chip design">Design &amp; Product</span>
+                </div>
+                <a href="Project-Design/BX_ArchPortfolio.pdf" target="_blank" rel="noopener noreferrer" class="card-expand" aria-label="Open project: Architectural Design 2015 to 2020">↗</a>
+              </div>
             </div>
           </div>
-        </a>
-
+        </article>
       </div>
     </section>
-    <br><br>
 
+    <p id="emptyState" class="empty-state" hidden>No projects match the selected filters.</p>
+
+    <footer>
+      If you'd like to chat, feel free to reach out through email or LinkedIn.
+    </footer>
   </main>
 
   <script>
-    let lastScrollTop = 0;
-    const topNav = document.getElementById('topNav');
-  
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-  
-      if (currentScroll > lastScrollTop) {
-        // Scrolling down
-        topNav.style.transform = 'translateY(-60px)'; 
-      } else {
-        // Scrolling up
-        topNav.style.transform = 'translateY(0)';
+    (function () {
+      const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+      const sortOrderSelect = document.getElementById('sortOrder');
+      const workCount = document.getElementById('workCount');
+      const emailLink = document.getElementById('emailLink');
+      const copyNotice = document.getElementById('copyNotice');
+      const projectGrid = document.getElementById('projectGrid');
+      const projectCards = Array.from(document.querySelectorAll('.project-card-wrap'));
+      const emptyState = document.getElementById('emptyState');
+      const EMAIL_ADDRESS = 'zx96@alum.mit.edu';
+      let copyNoticeTimer;
+
+      const formatWorkCount = (count) => `${count} work${count === 1 ? '' : 's'} shown`;
+
+      const getSelectedCategories = () =>
+        new Set(
+          filterButtons
+            .filter((button) => button.getAttribute('aria-pressed') === 'true')
+            .map((button) => button.dataset.category)
+        );
+
+      const sortCards = () => {
+        const order = sortOrderSelect.value;
+        const sorted = projectCards.slice().sort((a, b) => {
+          const yearA = Number(a.dataset.year);
+          const yearB = Number(b.dataset.year);
+          return order === 'newest' ? yearB - yearA : yearA - yearB;
+        });
+
+        sorted.forEach((card) => {
+          projectGrid.appendChild(card);
+        });
+      };
+
+      const applyFilter = () => {
+        const selectedCategories = getSelectedCategories();
+        let visibleCount = 0;
+
+        projectCards.forEach((card) => {
+          const isVisible = selectedCategories.has(card.dataset.category);
+          card.hidden = !isVisible;
+          if (isVisible) {
+            visibleCount += 1;
+          }
+        });
+
+        workCount.textContent = formatWorkCount(visibleCount);
+        emptyState.hidden = visibleCount !== 0;
+      };
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const isPressed = button.getAttribute('aria-pressed') === 'true';
+          button.setAttribute('aria-pressed', String(!isPressed));
+          applyFilter();
+        });
+      });
+
+      sortOrderSelect.addEventListener('change', sortCards);
+
+      const showCopyNotice = (message) => {
+        if (!copyNotice) {
+          return;
+        }
+
+        copyNotice.textContent = message;
+        copyNotice.hidden = false;
+
+        window.clearTimeout(copyNoticeTimer);
+        copyNoticeTimer = window.setTimeout(() => {
+          copyNotice.hidden = true;
+          copyNotice.textContent = '';
+        }, 2000);
+      };
+
+      const copyEmailToClipboard = async (value) => {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(value);
+          return;
+        }
+
+        const helperInput = document.createElement('textarea');
+        helperInput.value = value;
+        helperInput.setAttribute('readonly', '');
+        helperInput.style.position = 'absolute';
+        helperInput.style.left = '-9999px';
+        document.body.appendChild(helperInput);
+        helperInput.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(helperInput);
+
+        if (!copied) {
+          throw new Error('Clipboard copy failed');
+        }
+      };
+
+      if (emailLink) {
+        emailLink.addEventListener('click', async (event) => {
+          event.preventDefault();
+          try {
+            await copyEmailToClipboard(EMAIL_ADDRESS);
+            showCopyNotice('Email copied.');
+          } catch (error) {
+            showCopyNotice('Unable to copy email.');
+          }
+        });
       }
-      
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
+
+      sortCards();
+      applyFilter();
+    })();
   </script>
 </body>
 </html>
